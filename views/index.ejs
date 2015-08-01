@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="gameTime">
+<html ng-app="GameTime">
   <head>
-    <title><%= title %></title>
+    <title>gametime</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
   </head>
-  <body>
+  <body ng-controller="HomeCtrl">
 
     <nav>
       <div class="nav-wrapper teal">
@@ -34,5 +35,5 @@
     <!-- <h1><%= title %></h1>
     <p>Welcome to <%= title %></p> -->
   </body>
-  <script src="/javascripts/index.js"></script>
+  <script src="bundle.js"></script>
 </html>
