@@ -12,10 +12,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: './templates/home.html',
         controller: "HomeCtrl"
     })
-    .state('test', {
-      url: '/test',
-      templateUrl: './templates/test.html',
-      controller: "HomeCtrl"
+    .state('login', {
+      url: '/login',
+      templateUrl: './templates/login.html',
+      controller: "AuthCtrl"
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: './templates/register.html',
+      controller: "AuthCtrl"
     });
 });
 

@@ -12,20 +12,20 @@
   </head>
   <body>
 
-    <nav>
+    <nav ng-controller="NavCtrl">
       <div class="nav-wrapper teal">
         <a href="#" class="brand-logo center">gametime</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large">
           <i class="material-icons">menu</i>
         </a>
         <div class="hide-on-small-only">
-          <a href="#" class="waves-effect waves-light btn right">login</a>
-          <a href="#" class="waves-effect waves-light btn right">signup</a>
+          <a href="#" class="waves-effect waves-light btn right" ui-sref="login">login</a>
+          <a href="#" class="waves-effect waves-light btn right" ui-sref="register">sign up</a>
         </div>
         <ul class="side-nav" id="mobile-demo">
           <div class="hide-on-med-and-up">
-            <li><a href="#" class="waves-effect waves-light">login</a></li>
-            <li><a href="#" class="waves-effect waves-light">signup</a></li>
+            <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="login">login</a></li>
+            <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="register">sign up</a></li>
           </div>
         </ul>
       </div>

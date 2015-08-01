@@ -22,6 +22,20 @@ hr {
   margin-bottom: 10px;
 }
 
+.login-card .card {
+  padding-bottom: 20px !important;
+  padding-top: 20px !important;
+  text-align: center;
+}
+
+.login-card .card .card-title {
+  color: #8C8C8C;
+}
+
+.login-card {
+  margin-top: 15vh;
+}
+
 .nav-wrapper .btn {
   margin-top: 12px;
   margin-right: 10px;
