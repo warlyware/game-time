@@ -1,5 +1,4 @@
 var gulp = require("gulp");
-var livereload = require("gulp-livereload");
 var concat = require("gulp-concat");
 
 var paths = {
@@ -9,7 +8,7 @@ var paths = {
 gulp.task("default", [], function () {
     return gulp.src(paths.scripts)
         .pipe(concat("bundle.js"))
-        .pipe(gulp.dest("./public/javascripts/"))
+        .pipe(gulp.dest("./public"))
 });
 
 gulp.task("watch", function () {

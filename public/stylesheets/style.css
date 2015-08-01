@@ -6,7 +6,38 @@ a {
   color: #00B7FF;
 }
 
+h2 img {
+  margin-right: 20px;
+  width: 45px;
+}
+
+
+h5 img {
+  margin-right: 20px;
+  width: 20px;
+}
+
+hr {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
 .nav-wrapper .btn {
   margin-top: 12px;
   margin-right: 10px;
+}
+
+h2.intro-header {
+  padding-top: 40px;
+}
+
+.intro-text {
+  color: #8C8C8C;
+  font-style: italic;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.intro-text-wrapper {
+  margin-top: 50px;
 }
