@@ -8,7 +8,12 @@ var userSchema = mongoose.Schema({
   image: String,
   battleNet: String,
   lol: String,
-  primaryUsername: String
+  primaryUsername: String,
+  md5: String,
+  feedback: {
+    positive: Number,
+    negative: Number
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

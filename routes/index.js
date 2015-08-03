@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../app/models/user.js')
+var md5 = require('md5');
+var User = require('../app/models/user.js');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://heroku_6mm8k2vr:j2llrlvlvu6pfr7os0m804pdj8@ds041188.mongolab.com:41188/heroku_6mm8k2vr');
@@ -16,10 +17,16 @@ router.post('/user', function(req, res) {
   var user = new User({
     primaryUsername: req.body.primaryUsername,
     email: req.body.email,
+    md5: md5(req.body.email),
     playStyle: req.body.playStyle,
     battleNet: req.body.battleNet,
     lol: req.body.lol,
-    fbid: req.body.fbid
+    fbid: req.body.fbid,
+    image: 'http://placehold.it/250x250',
+    feedback: {
+      positive: 0,
+      negative: 0
+    }
   });
 
   user.save(function(err, savedUser) {
@@ -32,10 +39,10 @@ router.post('/user', function(req, res) {
   });
 });
 
-router.get('/user/:username', function(req, res) {
-  var requestedUser = req.params.username;
-  console.log(req.params.username);
-  User.findOne({ username: requestedUser }, function(err, user) {
+router.get('/user/:id', function(req, res) {
+  var requestedUser = req.params.id;
+  console.log(req.params.id);
+  User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);
     }
