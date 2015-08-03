@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row center">
+    <div class="col s12 m4 profile-sidebar">
+      <div class="avatar-profile center">
+        <img src="{{currentUser.img}}" alt="" class="responsive-img">
+        <p class="center flow-text">{{currentUser.username}}</h3>
+        <p class="center flow-text play-style">{{currentUser.playStyle}}</h3>
+      </div>
+      <button class="btn waves-effect waves-light">message</button>
+      <br><br>
+      <button class="btn waves-effect waves-light">request match</button>
+      <div class="feedback-wrapper">
+        <h5>Positive Feedback:</h5>
+        <div class="text-positive">{{currentUser.feedback.positive}} %</div>
+        <h5>Negative Feedback:</h5>
+        <div class="text-negative">{{currentUser.feedback.negative}} %</div>
+      </div>
+    </div>
+    <div class="col s12 m8 profile-main">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Game 1</div>
+          <p>This is where stats will be for game 1.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Game 2</div>
+          <p>This is where stats will be for game 2.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Game 3</div>
+          <p>This is where stats will be for game 3.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m8 offset-m2 profile-endorsements">
+      <hr width="40%">
+      <h4 class="center">Endorsements</h4>
+
+      <div class="row">
+        <div class="card-panel">
+          <h5>mRfakeUser313</h5>
+          <span>Tilde farm-to-table health goth, keffiyeh art party chambray pickled forage banjo swag
+            tote bag Carles hashtag vinyl pour-over.
+            Fixie drinking vinegar PBR&B Tumblr. Sustainable normcore Odd Future jean shorts,
+            kitsch put a bird on it flannel single-origin coffee gentrify Marfa DIY banh mi.
+            Messenger bag butcher VHS pickled. Wes Anderson cold-pressed flannel sustainable food truck.</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <form>
+          <div class="input-field col s12">
+            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">Played a game with this user?  Leave feedback!</label>
+          </div>
+          <div class="center">
+            <button type="submit" class="center btn wave-effects wave-light">submit feedback</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

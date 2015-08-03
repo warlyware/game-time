@@ -35,6 +35,34 @@ hr {
   font-weight: bold;
 }
 
+.directory .card {
+  margin-top: 5vh;
+  padding: 0px 15px 15px 15px;
+}
+
+.directory span, .directory p {
+  font-size: 2em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.directory table img {
+  vertical-align: top;
+  margin-right: 10px;
+}
+
+.directory button {
+  margin-top: 20px;
+}
+
+.directory .text-positive {
+  color: green;
+}
+
+.directory .text-negative {
+  color: red;
+}
+
 p.play-style {
   font-weight: normal;
   color: green;
@@ -99,12 +127,12 @@ h2.intro-header {
   margin-top: 5vh;
 }
 
-.text-positive {
+.profile-sidebar .text-positive {
   font-size: 3em;
   color: green;
 }
 
-.text-negative {
+.profile-sidebar .text-negative {
   font-size: 3em;
   color: red;
 }

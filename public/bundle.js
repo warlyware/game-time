@@ -26,6 +26,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/profile/:id',
       templateUrl: './templates/profile.html',
       controller: "ProfileCtrl"
+    })
+    .state('directory', {
+      url: '/directory',
+      templateUrl: './templates/directory.html',
+      controller: "DirectoryCtrl"
     });
 });
 
