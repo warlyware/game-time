@@ -18,10 +18,48 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <span class="card-title">play style: {{playStyle.name}}</span>
-            <p class="range-field">
-              <input type="range" id="test5" min="1" max="5" ng-model="playStyle"/>
-            </p>
+            <select class="browser-default" ng-model="user.playStyle">
+              <option value="" disabled selected>Choose your play style</option>
+              <option value="casul">casual</option>
+              <option value="easy going">easy going</option>
+              <option value="somewhat competitive">somewhat competitive</option>
+              <option value="competitive">competitive</option>
+              <option value="highly competitive">highly competitive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s8">
+            <input id="battlenet" type="text" ng-model="user.battleNet">
+            <label for="battlenet">battle.net</label>
+          </div>
+          <div class="col s4">
+            <span class="make-primary">
+              <input name="usernameGroup" type="radio" id="battlenet-primary"
+                     ng-disabled="!user.battleNet.length"
+                     ng-model="user.primary"
+                     value="battleNet"
+                     />
+              <label for="battlenet-primary">make primary</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s8">
+            <input id="lol" type="text" ng-model="user.lol">
+            <label for="lol">league of legends</label>
+          </div>
+          <div class="col s4">
+            <span class="make-primary">
+              <input name="usernameGroup" type="radio" id="lol-primary"
+                     ng-disabled="!user.lol.length"
+                     ng-model="user.primary"
+                     value="lol"
+                     />
+              <label for="lol-primary">make primary</label>
+            </span>
           </div>
         </div>
 

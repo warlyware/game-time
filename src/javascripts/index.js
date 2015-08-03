@@ -5,7 +5,8 @@ app.run(function() {
 });
 
 app.constant('URL', {
-  'server': 'http://localhost:3000'
+  'SERVER': 'http://localhost:3000',
+  'FIREBASE': 'https://dw-game-time.firebaseio.com'
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {

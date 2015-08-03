@@ -36,7 +36,7 @@ hr {
 }
 
 .directory .card {
-  margin-top: 5vh;
+  margin-top: 50px;
   padding: 0px 15px 15px 15px;
 }
 
@@ -79,8 +79,12 @@ p.play-style {
   color: #8C8C8C;
 }
 
+.login-card .make-primary label {
+  margin-top: 25px;
+}
+
 .login-card {
-  margin-top: 15vh;
+  margin-top: 50px;
 }
 
 .nav-wrapper .btn {

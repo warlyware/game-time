@@ -11,11 +11,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/user', function(req, res) {
+
   console.log(req.body);
   var user = new User({
-    username: req.body.username,
+    primaryUsername: req.body.primaryUsername,
     email: req.body.email,
-    image: req.body.image
+    playStyle: req.body.playStyle,
+    battleNet: req.body.battleNet,
+    lol: req.body.lol,
+    fbid: req.body.fbid
   });
 
   user.save(function(err, savedUser) {
