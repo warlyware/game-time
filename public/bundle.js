@@ -4,6 +4,10 @@ app.run(function() {
   console.log('Gametime online');
 });
 
+app.constant('URL', {
+  'server': 'http://localhost:3000'
+});
+
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider
@@ -43,16 +47,16 @@ angular.module('GameTime')
 
   $scope.registerUser = function() {
     console.log('registerUser')
-    ref.createUser({
-      email    : $scope.user.email,
-      password : $scope.user.password
-    }, function(error, userData) {
-      if (error) {
-        console.log("Error creating user:", error);
-      } else {
-        console.log("Successfully created user account with uid:", userData.uid);
-      }
-    });
+    // ref.createUser({
+    //   email    : $scope.user.email,
+    //   password : $scope.user.password
+    // }, function(error, userData) {
+    //   if (error) {
+    //     console.log("Error creating user:", error);
+    //   } else {
+    //     console.log("Successfully created user account with uid:", userData.uid);
+    //   }
+    // });
   }
 
   $scope.loginUser = function() {
@@ -87,7 +91,7 @@ angular.module('GameTime')
 
   $rootScope.currentUser = {
     username: 'uSErName2531',
-    img: 'http://placehold.it/250x250',
+    image : 'http://placehold.it/250x250',
     playStyle: 'Highly Competitive',
     feedback: {
       positive: 80,
@@ -106,7 +110,17 @@ angular.module('GameTime')
 });
 
 angular.module('GameTime')
-.controller('ProfileCtrl', function($scope, $state, $stateParams) {
+.controller('ProfileCtrl', function($scope, $rootScope, $state, $stateParams, $http, URL) {
   console.log('ProfileCtrl loaded.');
-  $scope.userId = $stateParams.id;
+
+  $scope.playStyle = 1;
+
+  $http.get(URL.server + '/user/' + $stateParams.id)
+    .success(function(data) {
+      console.log('user: ', data);
+      $rootScope.user = data;
+    })
+    .error(function(err) {
+      console.log(err);
+    })
 });

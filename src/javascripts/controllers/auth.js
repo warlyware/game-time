@@ -5,16 +5,16 @@ angular.module('GameTime')
 
   $scope.registerUser = function() {
     console.log('registerUser')
-    ref.createUser({
-      email    : $scope.user.email,
-      password : $scope.user.password
-    }, function(error, userData) {
-      if (error) {
-        console.log("Error creating user:", error);
-      } else {
-        console.log("Successfully created user account with uid:", userData.uid);
-      }
-    });
+    // ref.createUser({
+    //   email    : $scope.user.email,
+    //   password : $scope.user.password
+    // }, function(error, userData) {
+    //   if (error) {
+    //     console.log("Error creating user:", error);
+    //   } else {
+    //     console.log("Successfully created user account with uid:", userData.uid);
+    //   }
+    // });
   }
 
   $scope.loginUser = function() {

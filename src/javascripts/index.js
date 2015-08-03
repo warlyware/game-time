@@ -4,6 +4,10 @@ app.run(function() {
   console.log('Gametime online');
 });
 
+app.constant('URL', {
+  'server': 'http://localhost:3000'
+});
+
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider
