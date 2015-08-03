@@ -21,6 +21,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/register',
       templateUrl: './templates/register.html',
       controller: "AuthCtrl"
+    })
+    .state('profile', {
+      url: '/profile/:id',
+      templateUrl: './templates/profile.html',
+      controller: "ProfileCtrl"
     });
 });
 

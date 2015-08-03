@@ -22,6 +22,25 @@ hr {
   margin-bottom: 10px;
 }
 
+.avatar-profile {
+  margin-top: 5vh;
+}
+
+.avatar-profile img {
+  display: block;
+  margin: 0px auto;
+}
+
+.avatar-profile p {
+  font-weight: bold;
+}
+
+p.play-style {
+  font-weight: normal;
+  color: green;
+}
+
+
 .login-card .card {
   padding-bottom: 20px !important;
   padding-top: 20px !important;
@@ -54,4 +73,38 @@ h2.intro-header {
 
 .intro-text-wrapper {
   margin-top: 50px;
+}
+
+.profile-endorsements h4 {
+  margin-top: 5vh;
+}
+
+.profile-main {
+  margin-top: 5vh;
+}
+
+.profile-sidebar button {
+  width: 20vw;
+}
+
+.profile-sidebar p {
+  font-size: 1.5em;
+  margin-top: 3vh;
+}
+
+.profile-sidebar h5 {
+}
+
+.profile-sidebar .feedback-wrapper {
+  margin-top: 5vh;
+}
+
+.text-positive {
+  font-size: 3em;
+  color: green;
+}
+
+.text-negative {
+  font-size: 3em;
+  color: red;
 }
