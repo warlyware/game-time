@@ -6,23 +6,12 @@ angular.module('GameTime')
   $scope.registerUser = function() {
     var primaryUsername;
 
-    if ($scope.user.primary === 'battleNet') {
-      console.log('battleNet');
-      primaryUsername = $scope.user.battleNet;
+    if ($scope.user.primary === 'sc2') {
+      primaryUsername = $scope.user.sc2;
     } else if ($scope.user.primary === 'lol') {
-      console.log('lol');
       primaryUsername = $scope.user.lol;
     }
-    console.log('registerUser');
-    // $http.get(URL.SERVER + '/user/' + $stateParams.id)
-    //   .success(function(data) {
-    //     console.log('user: ', data);
-    //     $rootScope.user = data;
-    //   })
-    //   .error(function(err) {
-    //     console.log(err);
-    //
-    // })
+
     ref.createUser({
       email: $scope.user.email,
       password: $scope.user.password
@@ -34,7 +23,8 @@ angular.module('GameTime')
         $http.post(URL.SERVER + '/user',
           {
             email: $scope.user.email,
-            battleNet: $scope.user.battleNet,
+            sc2: $scope.user.sc2,
+            sc2id: $scope.user.sc2id,
             lol: $scope.user.lol,
             primaryUsername: primaryUsername,
             fbid: userData.uid,
@@ -49,8 +39,8 @@ angular.module('GameTime')
 
   $scope.loginUser = function() {
     ref.authWithPassword({
-      email    : $scope.user.email,
-      password : $scope.user.password
+      email: $scope.user.email,
+      password: $scope.user.password
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);

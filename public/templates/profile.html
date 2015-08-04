@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container profile">
   <div class="row center">
     <div class="col s12 m4 profile-sidebar">
       <div class="avatar-profile center">
@@ -19,14 +19,16 @@
     <div class="col s12 m8 profile-main">
       <div class="card">
         <div class="card-content">
-          <div class="card-title">Game 1</div>
-          <p>This is where stats will be for game 1.</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Game 2</div>
-          <p>This is where stats will be for game 2.</p>
+          <div class="card-title black-text">Starcraft 2</div>
+          <!-- <img ng-src="{{sc2data.portrait.url}}" class="portrait" alt=""> -->
+          <h5>{{sc2data.displayName}}</h5>
+          <h6>Primary Race: {{sc2data.career.primaryRace}}</h6>
+          <hr>
+          <h6>Protoss wins: {{sc2data.career.protossWins}}</h6>
+          <h6>Zerg wins: {{sc2data.career.zergWins}}</h6>
+          <h6>Terran wins: {{sc2data.career.terranWins}}</h6>
+          <h6>Season total games: {{sc2data.career.seasonTotalGames}}</h6>
+          <h6>Career total games: {{sc2data.career.careerTotalGames}}</h6>
         </div>
       </div>
       <div class="card">

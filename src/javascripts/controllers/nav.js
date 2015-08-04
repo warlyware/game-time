@@ -4,6 +4,7 @@ angular.module('GameTime')
 
   $rootScope.currentUser = {
     username: 'uSErName2531',
+    sc2: 'Sc2NAme',
     image : 'http://placehold.it/250x250',
     playStyle: 'Highly Competitive',
     feedback: {

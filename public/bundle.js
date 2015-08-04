@@ -32,6 +32,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: './templates/profile.html',
       controller: "ProfileCtrl"
     })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: './templates/settings.html',
+      controller: "SettingsCtrl"
+    })
     .state('directory', {
       url: '/directory',
       templateUrl: './templates/directory.html',
@@ -49,23 +54,12 @@ angular.module('GameTime')
   $scope.registerUser = function() {
     var primaryUsername;
 
-    if ($scope.user.primary === 'battleNet') {
-      console.log('battleNet');
-      primaryUsername = $scope.user.battleNet;
+    if ($scope.user.primary === 'sc2') {
+      primaryUsername = $scope.user.sc2;
     } else if ($scope.user.primary === 'lol') {
-      console.log('lol');
       primaryUsername = $scope.user.lol;
     }
-    console.log('registerUser');
-    // $http.get(URL.SERVER + '/user/' + $stateParams.id)
-    //   .success(function(data) {
-    //     console.log('user: ', data);
-    //     $rootScope.user = data;
-    //   })
-    //   .error(function(err) {
-    //     console.log(err);
-    //
-    // })
+
     ref.createUser({
       email: $scope.user.email,
       password: $scope.user.password
@@ -77,7 +71,8 @@ angular.module('GameTime')
         $http.post(URL.SERVER + '/user',
           {
             email: $scope.user.email,
-            battleNet: $scope.user.battleNet,
+            sc2: $scope.user.sc2,
+            sc2id: $scope.user.sc2id,
             lol: $scope.user.lol,
             primaryUsername: primaryUsername,
             fbid: userData.uid,
@@ -92,8 +87,8 @@ angular.module('GameTime')
 
   $scope.loginUser = function() {
     ref.authWithPassword({
-      email    : $scope.user.email,
-      password : $scope.user.password
+      email: $scope.user.email,
+      password: $scope.user.password
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
@@ -109,6 +104,7 @@ angular.module('GameTime')
 angular.module('GameTime')
 .controller('DirectoryCtrl', function($scope, $state) {
   console.log('DirectoryCtrl loaded.');
+  $('#sc2filter').prop('checked');
 });
 
 angular.module('GameTime')
@@ -122,6 +118,7 @@ angular.module('GameTime')
 
   $rootScope.currentUser = {
     username: 'uSErName2531',
+    sc2: 'Sc2NAme',
     image : 'http://placehold.it/250x250',
     playStyle: 'Highly Competitive',
     feedback: {
@@ -148,7 +145,13 @@ angular.module('GameTime')
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
     .success(function(data) {
       console.log('user: ', data);
+
       $scope.user = data;
+      $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
+        .success(function(sc2data) {
+          $scope.sc2data = sc2data;
+          console.log(sc2data);
+        });
     })
     .error(function(err) {
       console.log(err);
@@ -172,4 +175,11 @@ angular.module('GameTime')
       swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
   }
 
+});
+
+angular.module('GameTime')
+.controller('SettingsCtrl', function($scope, $rootScope) {
+  console.log('SettingsCtrl loaded.');
+  // $scope.user.sc2 = $rootScope.currentUser.sc2;
+  // $scope.user.sc2 = 'asdf';
 });

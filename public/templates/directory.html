@@ -27,31 +27,15 @@
           <div class="card-title black-text center">filter results</div>
           <div class="col m6">
             <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 1</label>
-            </p>
-            <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 2</label>
-            </p>
-            <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 3</label>
+              <input type="checkbox" id="sc2filter" ng-model="Search.sc2" />
+              <label for="sc2filter">starcraft 2</label>
             </p>
           </div>
 
           <div class="col m6">
             <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 4</label>
-            </p>
-            <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 5</label>
-            </p>
-            <p>
-              <input type="checkbox" id="test5" />
-              <label for="test5">opt 6</label>
+              <input type="checkbox" id="lol" ng-model="Search.lol" />
+              <label for="lol">league of legends</label>
             </p>
           </div>
 
@@ -72,7 +56,7 @@
       </thead>
 
       <tbody>
-        <tr>
+        <tr ng-show="Search.sc2">
           <td>
             <p class="username flow-text">
               <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
@@ -84,9 +68,9 @@
             <span>/</span>
             <span class="text-negative">20%</span>
           </td>
-          <td><p class="flow-text">heroes of the storm</p></td>
+          <td><p class="flow-text">starcraft 2</p></td>
         </tr>
-        <tr>
+        <tr ng-show="Search.sc2">
           <td>
             <p class="username flow-text">
               <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
@@ -100,7 +84,21 @@
           </td>
           <td><p class="flow-text">starcraft 2</p></td>
         </tr>
-        <tr>
+        <tr ng-show="Search.lol">
+          <td>
+            <p class="username flow-text">
+              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
+              ThisISaUSEr31
+            </p>
+          </td>
+          <td>
+            <span class="text-positive">70%</span>
+            <span>/</span>
+            <span class="text-negative">30%</span>
+          </td>
+          <td><p class="flow-text">league of legends</p></td>
+        </tr>
+        <tr ng-show="Search.lol">
           <td>
             <p class="username flow-text">
               <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
@@ -111,6 +109,20 @@
             <span class="text-positive">50%</span>
             <span>/</span>
             <span class="text-negative">50%</span>
+          </td>
+          <td><p class="flow-text">league of legends</p></td>
+        </tr>
+        <tr ng-show="Search.lol">
+          <td>
+            <p class="username flow-text">
+              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
+              oneMoreUSEr55
+            </p>
+          </td>
+          <td>
+            <span class="text-positive">40%</span>
+            <span>/</span>
+            <span class="text-negative">60%</span>
           </td>
           <td><p class="flow-text">league of legends</p></td>
         </tr>

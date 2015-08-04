@@ -1,20 +1,8 @@
 <div class="contianer">
   <div class="row login-card">
     <div class="card col s12 m4 offset-m4">
-      <span class="card-title">sign up</span>
-      <form ng-submit="registerUser()">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate" ng-model="user.email">
-            <label for="email">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate" ng-model="user.password">
-            <label for="password">Password</label>
-          </div>
-        </div>
+      <img ng-src="{{currentUser.image}}" alt="">
+      <form ng-submit="updateUser()">
         <div class="row">
           <div class="input-field col s12">
             <select class="browser-default" ng-model="user.playStyle">
@@ -38,7 +26,6 @@
             <label for="lol">league of legends</label>
           </span>
         </div>
-
         <div class="row">
           <div ng-show="ModelData.sc2">
             <div class="input-field col s8">
@@ -83,8 +70,7 @@
 
           </div>
         </div>
-
-        <button type="submit" class="btn waves-effect waves-light btn">sign up</button>
+        <button type="submit" class="btn waves-effect waves-light btn">update</button>
       </form>
     </div>
   </div>

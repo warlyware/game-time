@@ -6,7 +6,13 @@ angular.module('GameTime')
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
     .success(function(data) {
       console.log('user: ', data);
+
       $scope.user = data;
+      $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
+        .success(function(sc2data) {
+          $scope.sc2data = sc2data;
+          console.log(sc2data);
+        });
     })
     .error(function(err) {
       console.log(err);

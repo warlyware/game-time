@@ -32,6 +32,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: './templates/profile.html',
       controller: "ProfileCtrl"
     })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: './templates/settings.html',
+      controller: "SettingsCtrl"
+    })
     .state('directory', {
       url: '/directory',
       templateUrl: './templates/directory.html',
