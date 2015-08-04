@@ -113,7 +113,7 @@ angular.module('GameTime')
 
 angular.module('GameTime')
 .controller('HomeCtrl', function($scope) {
-  console.log('HomeCtrl loaded.')
+  console.log('HomeCtrl loaded.');
 });
 
 angular.module('GameTime')
@@ -153,4 +153,23 @@ angular.module('GameTime')
     .error(function(err) {
       console.log(err);
     });
+
+  $scope.openMessageModal = function() {
+    swal({
+      title: "your message",
+      text: "your message to " + $scope.user.primaryUsername + ':',
+      type: "input",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      animation: "slide-from-top",
+      inputPlaceholder: "Write something"
+    }, function(inputValue){
+      if (inputValue === false) return false;
+      if (inputValue === "") {
+        swal.showInputError("You need to write something!");
+        return false
+      }
+      swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+  }
+
 });
