@@ -2,7 +2,6 @@ angular.module('GameTime')
 .controller('ProfileCtrl', function($scope, $rootScope, $state, $stateParams, $http, URL) {
   console.log('ProfileCtrl loaded.');
 
-
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
     .success(function(data) {
       console.log('user: ', data);
@@ -12,7 +11,15 @@ angular.module('GameTime')
         .success(function(sc2data) {
           $scope.sc2data = sc2data;
           console.log(sc2data);
-        });
+      });
+      $http.get(URL.SERVER + '/loldata/' + $scope.user.lol)
+        .success(function(loldata) {
+          $scope.loldata = loldata;
+          $scope.loltotalgames = Number(loldata.wins) + Number(loldata.losses);
+        })
+        .error(function(err) {
+          console.log(err);
+        })
     })
     .error(function(err) {
       console.log(err);
@@ -34,6 +41,10 @@ angular.module('GameTime')
         return false
       }
       swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+  }
+
+  $scope.endorse = function(endorsement, val) {
+    console.log('endorse ' + endorsement + ' to ' + (val+1));
   }
 
 });

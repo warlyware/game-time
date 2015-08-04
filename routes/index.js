@@ -4,17 +4,7 @@ var md5 = require('md5');
 var User = require('../app/models/user.js');
 var mongoose = require('mongoose');
 var bnet = require('battlenet-api')();
-
-// bnet.sc2.profile.profile({
-//   origin: 'us',
-//   id: '6210009',
-//   region: 1,
-//   name: 'scorpling'
-// }, {
-//   apikey: '546vvy2c49eswk8tndj4fjsp7yswzxvs'
-// }, function(err, resp) {
-//   console.log(resp);
-// });
+var lookup = require('lolking-lookup');
 
 mongoose.connect('mongodb://heroku_6mm8k2vr:j2llrlvlvu6pfr7os0m804pdj8@ds041188.mongolab.com:41188/heroku_6mm8k2vr');
 
@@ -81,6 +71,17 @@ router.get('/sc2data/:sc2id/:sc2', function(req, res) {
   }, function(err, resp) {
     console.log(resp);
     res.json(resp);
+  });
+});
+
+router.get('/loldata/:loluser', function(req, res) {
+  lookup('na', req.params.loluser, function(error, data) {
+    if (error) {
+      throw error;
+      res.status(400).json('API error');
+    }
+    console.log(data);
+    res.json(data);
   });
 });
 

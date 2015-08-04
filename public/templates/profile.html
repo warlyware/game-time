@@ -22,7 +22,7 @@
           <div class="card-title black-text">Starcraft 2</div>
           <!-- <img ng-src="{{sc2data.portrait.url}}" class="portrait" alt=""> -->
           <h5>{{sc2data.displayName}}</h5>
-          <h6>Primary Race: {{sc2data.career.primaryRace}}</h6>
+          <h5>Primary Race: {{sc2data.career.primaryRace}}</h5>
           <hr>
           <h6>Protoss wins: {{sc2data.career.protossWins}}</h6>
           <h6>Zerg wins: {{sc2data.career.zergWins}}</h6>
@@ -33,20 +33,30 @@
       </div>
       <div class="card">
         <div class="card-content">
-          <div class="card-title">Game 3</div>
-          <p>This is where stats will be for game 3.</p>
+          <div class="card-title black-text">Leage of Legends</div>
+          <h5>{{loldata.name}}</h5>
+          <hr>
+          <h6>Wins: {{loldata.wins}}</h6>
+          <h6>Losses: {{loldata.losses}}</h6>
+          <h6>Total games played: {{loltotalgames}}</h6>
+          <h6>Tier: <span>{{loldata.tier_name}}</span></h6>
         </div>
       </div>
-
+    </div>
+    <div class="col s12 m8 profile-main profile-endorsements">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title black-text">Endorsements</div>
+          <div ng-repeat="(endorsement, val) in user.endorsements" class="endorsement"
+               ng-click="endorse(endorsement, val)">{{endorsement}}: {{val}}</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col s12 m8 offset-m2 profile-endorsements">
+    <div class="col s12 m8 offset-m2">
       <hr width="40%">
-      <h4 class="center">Endorsements</h4>
-        <br><br>
       <div class="row">
-        <hr width="40%">
         <h4 class="center">User Feedback</h4>
         <div class="card-panel">
           <h5>mRfakeUser313</h5>
