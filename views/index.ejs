@@ -23,16 +23,29 @@
           <i class="material-icons">menu</i>
         </a>
         <div class="hide-on-small-only">
-          <a href="#" class="waves-effect waves-light btn right" ui-sref="login">login</a>
-          <a href="#" class="waves-effect waves-light btn right" ui-sref="register">sign up</a>
+          <div class="right">{{currentUser.primaryUsername}}</div>
+          <a href="#" class="waves-effect waves-light btn right" ui-sref="login" ng-hide="currentUser">login</a>
+          <a href="#" class="waves-effect waves-light btn right" ui-sref="register" ng-hide="currentUser">sign up</a>
         </div>
         <ul class="side-nav" id="mobile-demo">
           <div class="hide-on-med-and-up">
-            <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="login">login</a></li>
-            <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="register">sign up</a></li>
+            <li><a href="#"
+              class="waves-effect waves-light"
+              ng-click="hideNav()" ui-sref="login"
+              ng-hide="currentUser">login</a></li>
+            <li><a href="#"
+              class="waves-effect waves-light"
+              ng-click="hideNav()" ui-sref="register"
+              ng-hide="currentUser">sign up</a></li>
           </div>
-          <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="directory">directory</a></li>
-          <li><a href="#" class="waves-effect waves-light" ng-click="hideNav()" ui-sref="settings">settings</a></li>
+          <li><a href="#" class="waves-effect waves-light"
+                ng-click="hideNav()"
+                ui-sref="directory"
+                ng-show="currentUser">directory</a></li>
+          <li><a href="#" class="waves-effect waves-light"
+                 ng-click="hideNav()"
+                 ui-sref="settings"
+                 ng-show="currentUser">settings</a></li>
         </ul>
       </div>
     </nav>
