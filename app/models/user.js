@@ -12,6 +12,10 @@ var userSchema = mongoose.Schema({
   lol: String,
   primaryUsername: String,
   md5: String,
+  endorsements: {
+    skilled: String,
+    friendly: String
+  },
   feedback: {
     positive: Number,
     negative: Number

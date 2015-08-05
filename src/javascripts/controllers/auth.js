@@ -1,5 +1,5 @@
 angular.module('GameTime')
-.controller('AuthCtrl', function($scope, $state, $http, URL) {
+.controller('AuthCtrl', function($scope, $state, $rootScope, $http, URL, $state, $stateParams) {
   console.log('AuthCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
 
@@ -45,7 +45,16 @@ angular.module('GameTime')
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        console.log("Authenticated successfully with payload:", authData);
+        $http.get(URL.SERVER + '/user/login/' + $scope.user.email)
+          .success(function(data) {
+            $rootScope.currentUser = data;
+            console.log('currentUser: ', data);
+            $state.go('directory');
+          })
+          .error(function(err) {
+            console.log(err);
+          });
+          console.log("Authenticated successfully with payload:", authData);
       }
     });
   }

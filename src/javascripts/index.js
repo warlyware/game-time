@@ -1,4 +1,4 @@
-var app = angular.module('GameTime', ['ui.router']);
+var app = angular.module('GameTime', ['ui.router', 'firebase']);
 
 app.run(function() {
   console.log('Gametime online');

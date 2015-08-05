@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/user', function(req, res) {
-
   console.log(req.body);
   var user = new User({
     primaryUsername: req.body.primaryUsername,
@@ -39,6 +38,51 @@ router.post('/user', function(req, res) {
     }
     console.log("User Saved:", savedUser);
     res.json(savedUser);
+  });
+});
+
+router.patch('/user/', function(req, res) {
+  var requestedUser = req.body.md5;
+  var endorsement = req.body.endorsement;
+  // console.log(endorsement);
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+    var endorsementVal = user.endorsements[endorsement];
+    console.log(endorsementVal);
+    user.endorsements[endorsement] = parseInt(endorsementVal) + 1;
+
+    user.save(function(err, savedUser) {
+      if (err) {
+        console.log(err);
+        res.status(400).json({ error: "Validation Failed" });
+      }
+      console.log("User Saved:", savedUser);
+      res.json(savedUser);
+    });
+  });
+
+});
+
+router.get('/user/login/:id', function(req, res) {
+  console.log('login');
+  var requestedUser = md5(req.params.id);
+  console.log(req.params.id);
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+    console.log(user);
+    res.json(user);
   });
 });
 

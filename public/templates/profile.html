@@ -47,8 +47,9 @@
       <div class="card">
         <div class="card-content">
           <div class="card-title black-text">Endorsements</div>
-          <div ng-repeat="(endorsement, val) in user.endorsements" class="endorsement"
-               ng-click="endorse(endorsement, val)">{{endorsement}}: {{val}}</div>
+          {{endorsements}}
+          <div ng-repeat="(endorsement, val) in endorsements track by $index" class="endorsement"
+               ng-click="endorse(endorsement, val, $index)">{{endorsement}}: {{val}}</div>
         </div>
       </div>
     </div>

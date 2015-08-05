@@ -1,4 +1,4 @@
-var app = angular.module('GameTime', ['ui.router']);
+var app = angular.module('GameTime', ['ui.router', 'firebase']);
 
 app.run(function() {
   console.log('Gametime online');
@@ -47,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 $(".button-collapse").sideNav();
 
 angular.module('GameTime')
-.controller('AuthCtrl', function($scope, $state, $http, URL) {
+.controller('AuthCtrl', function($scope, $state, $rootScope, $http, URL, $state, $stateParams) {
   console.log('AuthCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
 
@@ -93,7 +93,16 @@ angular.module('GameTime')
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        console.log("Authenticated successfully with payload:", authData);
+        $http.get(URL.SERVER + '/user/login/' + $scope.user.email)
+          .success(function(data) {
+            $rootScope.currentUser = data;
+            console.log('currentUser: ', data);
+            $state.go('directory');
+          })
+          .error(function(err) {
+            console.log(err);
+          });
+          console.log("Authenticated successfully with payload:", authData);
       }
     });
   }
@@ -116,21 +125,21 @@ angular.module('GameTime')
 .controller('NavCtrl', function($scope, $state, $rootScope) {
   console.log('NavCtrl loaded.');
 
-  $rootScope.currentUser = {
-    username: 'uSErName2531',
-    sc2: 'Sc2NAme',
-    image : 'http://placehold.it/250x250',
-    playStyle: 'Highly Competitive',
-    feedback: {
-      positive: 80,
-      negative: 20
-    },
-    endorsements: {
-      friendly: 15,
-      teamPlayer: 8,
-      punctual: -5
-    }
-  }
+  // $rootScope.currentUser = {
+  //   username: 'uSErName2531',
+  //   sc2: 'Sc2NAme',
+  //   image : 'http://placehold.it/250x250',
+  //   playStyle: 'Highly Competitive',
+  //   feedback: {
+  //     positive: 80,
+  //     negative: 20
+  //   },
+  //   endorsements: {
+  //     friendly: 15,
+  //     teamPlayer: 8,
+  //     punctual: -5
+  //   }
+  // }
 
   $scope.hideNav = function() {
     $('.button-collapse').sideNav('hide');
@@ -144,8 +153,8 @@ angular.module('GameTime')
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
     .success(function(data) {
       console.log('user: ', data);
-
       $scope.user = data;
+      $scope.endorsements = data.endorsements;
       $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
         .success(function(sc2data) {
           $scope.sc2data = sc2data;
