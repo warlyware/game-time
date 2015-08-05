@@ -51,6 +51,7 @@ angular.module('GameTime')
   console.log('AuthCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
 
+
   $scope.registerUser = function() {
     var primaryUsername;
 
@@ -71,6 +72,7 @@ angular.module('GameTime')
         $http.post(URL.SERVER + '/user',
           {
             email: $scope.user.email,
+            uid: userData.uid,
             sc2: $scope.user.sc2,
             sc2id: $scope.user.sc2id,
             lol: $scope.user.lol,
@@ -80,6 +82,7 @@ angular.module('GameTime')
           })
           .success(function(newUser) {
             console.log('posted to backend:' + newUser.email);
+            $state.go('login');
           });
       }
     });
@@ -93,8 +96,9 @@ angular.module('GameTime')
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        $http.get(URL.SERVER + '/user/login/' + $scope.user.email)
+        $http.get(URL.SERVER + '/user/login/' + authData.uid)
           .success(function(data) {
+            localStorage.setItem('fbToken', authData.token);
             $rootScope.currentUser = data;
             console.log('currentUser: ', data);
             $state.go('directory');
@@ -122,8 +126,31 @@ angular.module('GameTime')
 });
 
 angular.module('GameTime')
-.controller('NavCtrl', function($scope, $state, $rootScope) {
+.controller('NavCtrl', function($scope, $state, $rootScope, $http, $window, URL) {
+  var ref = new Firebase(URL.FIREBASE);
+
   console.log('NavCtrl loaded.');
+  var ref = new Firebase(URL.FIREBASE);
+  if (localStorage.getItem('fbToken')) {
+    var fbToken = localStorage.getItem('fbToken');
+    ref.authWithCustomToken(fbToken, function(error, result) {
+      if (error) {
+        console.log("Authentication Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", result);
+        console.log("Auth expires at:", new Date(result.expires * 1000));
+        $http.get(URL.SERVER + '/user/login/' + result.uid)
+          .success(function(data) {
+            $rootScope.currentUser = data;
+            console.log('currentUser: ', data);
+            $state.go('directory');
+          })
+          .error(function(err) {
+            console.log(err);
+          });
+      }
+    });
+  }
 
   // $rootScope.currentUser = {
   //   username: 'uSErName2531',
@@ -141,6 +168,13 @@ angular.module('GameTime')
   //   }
   // }
 
+  $scope.logoutUser = function() {
+    ref.unauth();
+    $scope.hideNav();
+    localStorage.removeItem('fbToken');
+    $window.location.reload();
+  }
+
   $scope.hideNav = function() {
     $('.button-collapse').sideNav('hide');
   }
@@ -151,27 +185,34 @@ angular.module('GameTime')
   console.log('ProfileCtrl loaded.');
 
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
-    .success(function(data) {
-      console.log('user: ', data);
-      $scope.user = data;
-      $scope.endorsements = data.endorsements;
-      $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
-        .success(function(sc2data) {
-          $scope.sc2data = sc2data;
-          console.log(sc2data);
-      });
-      $http.get(URL.SERVER + '/loldata/' + $scope.user.lol)
-        .success(function(loldata) {
-          $scope.loldata = loldata;
-          $scope.loltotalgames = Number(loldata.wins) + Number(loldata.losses);
-        })
-        .error(function(err) {
-          console.log(err);
-        })
+    .success(function(user) {
+      console.log('user: ', user);
+      $scope.user = user;
+      $scope.endorsements = user.endorsements;
+      console.log(user);
+      if (user.sc2) {
+        $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
+          .success(function(sc2data) {
+            $scope.sc2data = sc2data;
+            console.log(sc2data);
+        });
+      }
+      if (user.lol) {
+        $http.get(URL.SERVER + '/loldata/' + $scope.user.lol)
+          .success(function(loldata) {
+            $scope.loldata = loldata;
+            $scope.loltotalgames = Number(loldata.wins) + Number(loldata.losses);
+          })
+          .error(function(err) {
+            console.log(err);
+          });
+      }
     })
     .error(function(err) {
       console.log(err);
     });
+
+
 
   $scope.openMessageModal = function() {
     swal({
@@ -191,8 +232,21 @@ angular.module('GameTime')
       swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
   }
 
-  $scope.endorse = function(endorsement, val) {
-    console.log('endorse ' + endorsement + ' to ' + (val+1));
+  $scope.endorse = function(endorsement, val, e) {
+
+    $http.patch(URL.SERVER + '/user', {
+      endorsement: endorsement,
+      md5: $scope.user.md5
+    }).success(function() {
+      console.log("added 1 to " + endorsement);
+      val += 1;
+      setTimeout(function() {
+        console.log('applying ' + e);
+        $scope.$digest();
+      }, 500);
+    }).error(function(err) {
+      console.log(err);
+    });
   }
 
 });

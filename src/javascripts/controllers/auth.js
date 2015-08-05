@@ -3,6 +3,7 @@ angular.module('GameTime')
   console.log('AuthCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
 
+
   $scope.registerUser = function() {
     var primaryUsername;
 
@@ -23,6 +24,7 @@ angular.module('GameTime')
         $http.post(URL.SERVER + '/user',
           {
             email: $scope.user.email,
+            uid: userData.uid,
             sc2: $scope.user.sc2,
             sc2id: $scope.user.sc2id,
             lol: $scope.user.lol,
@@ -32,6 +34,7 @@ angular.module('GameTime')
           })
           .success(function(newUser) {
             console.log('posted to backend:' + newUser.email);
+            $state.go('login');
           });
       }
     });
@@ -45,8 +48,9 @@ angular.module('GameTime')
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        $http.get(URL.SERVER + '/user/login/' + $scope.user.email)
+        $http.get(URL.SERVER + '/user/login/' + authData.uid)
           .success(function(data) {
+            localStorage.setItem('fbToken', authData.token);
             $rootScope.currentUser = data;
             console.log('currentUser: ', data);
             $state.go('directory');

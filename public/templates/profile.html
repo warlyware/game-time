@@ -29,6 +29,8 @@
           <h6>Terran wins: {{sc2data.career.terranWins}}</h6>
           <h6>Season total games: {{sc2data.career.seasonTotalGames}}</h6>
           <h6>Career total games: {{sc2data.career.careerTotalGames}}</h6>
+          <h6>1v1 Rank: {{sc2data.career.highest1v1Rank}}</h6>
+          <h6>Team Rank: {{sc2data.career.highestTeamRank}}</h6>
         </div>
       </div>
       <div class="card">
@@ -43,13 +45,12 @@
         </div>
       </div>
     </div>
-    <div class="col s12 m8 profile-main profile-endorsements">
+    <div class="col s12 m8 offset-m2 profile-main profile-endorsements">
       <div class="card">
         <div class="card-content">
           <div class="card-title black-text">Endorsements</div>
-          {{endorsements}}
           <div ng-repeat="(endorsement, val) in endorsements track by $index" class="endorsement"
-               ng-click="endorse(endorsement, val, $index)">{{endorsement}}: {{val}}</div>
+               ng-click="endorse(endorsement, val, $event)">{{endorsement}}: {{val}}</div>
         </div>
       </div>
     </div>

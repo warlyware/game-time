@@ -1,9 +1,9 @@
 body {
-  Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.directory a {
+  color: black;
 }
 
 h2 img {

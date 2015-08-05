@@ -18,7 +18,7 @@ router.post('/user', function(req, res) {
   var user = new User({
     primaryUsername: req.body.primaryUsername,
     email: req.body.email,
-    md5: md5(req.body.email),
+    md5: md5(req.body.uid),
     playStyle: req.body.playStyle,
     sc2: req.body.sc2,
     sc2id: req.body.sc2id,
@@ -41,10 +41,12 @@ router.post('/user', function(req, res) {
   });
 });
 
+// Route to update endorsement
 router.patch('/user/', function(req, res) {
   var requestedUser = req.body.md5;
   var endorsement = req.body.endorsement;
-  // console.log(endorsement);
+  console.log(requestedUser);
+
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);
@@ -72,7 +74,7 @@ router.patch('/user/', function(req, res) {
 router.get('/user/login/:id', function(req, res) {
   console.log('login');
   var requestedUser = md5(req.params.id);
-  console.log(req.params.id);
+  console.log('simple login', req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);
