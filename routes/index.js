@@ -41,10 +41,13 @@ router.post('/user', function(req, res) {
   });
 });
 
-// Route to update endorsement
+// Route to update user
 router.patch('/user/', function(req, res) {
   var requestedUser = req.body.md5;
   var endorsement = req.body.endorsement;
+  var image = req.body.image;
+  var playStyle = req.body.playStyle;
+
   console.log(requestedUser);
 
   User.findOne({ md5: requestedUser }, function(err, user) {
@@ -55,9 +58,24 @@ router.patch('/user/', function(req, res) {
       res.status(404).json({ error: "User Not Found" });
       return;
     }
-    var endorsementVal = user.endorsements[endorsement];
-    console.log(endorsementVal);
-    user.endorsements[endorsement] = parseInt(endorsementVal) + 1;
+
+    // If updating endorsement
+    if (endorsement) {
+      var endorsementVal = user.endorsements[endorsement];
+      console.log('updating endorsement: ' + endorsementVal);
+      user.endorsements[endorsement] = parseInt(endorsementVal) + 1;
+    }
+
+    // If updating image url
+    if (image) {
+      console.log('updating image');
+      user.image = image;
+    }
+
+    // If updating playStyle
+    if (playStyle) {
+      user.playStyle = playStyle;
+    }
 
     user.save(function(err, savedUser) {
       if (err) {

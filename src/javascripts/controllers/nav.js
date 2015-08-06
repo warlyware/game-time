@@ -4,6 +4,8 @@ angular.module('GameTime')
 
   console.log('NavCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
+
+  // Check if session info exits, and login if so
   if (localStorage.getItem('fbToken')) {
     var fbToken = localStorage.getItem('fbToken');
     ref.authWithCustomToken(fbToken, function(error, result) {
@@ -16,7 +18,6 @@ angular.module('GameTime')
           .success(function(data) {
             $rootScope.currentUser = data;
             console.log('currentUser: ', data);
-            $state.go('directory');
           })
           .error(function(err) {
             console.log(err);

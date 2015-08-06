@@ -1,7 +1,10 @@
 var app = angular.module('GameTime', ['ui.router', 'firebase']);
 
-app.run(function() {
-  console.log('Gametime online');
+app.run(function ($rootScope, $state, $log) {
+  $rootScope.$on('$stateChangeError', function () {
+    // Redirect user to our login page
+    $state.go('login');
+  });
 });
 
 app.constant('URL', {
@@ -131,6 +134,8 @@ angular.module('GameTime')
 
   console.log('NavCtrl loaded.');
   var ref = new Firebase(URL.FIREBASE);
+
+  // Check if session info exits, and login if so
   if (localStorage.getItem('fbToken')) {
     var fbToken = localStorage.getItem('fbToken');
     ref.authWithCustomToken(fbToken, function(error, result) {
@@ -143,7 +148,6 @@ angular.module('GameTime')
           .success(function(data) {
             $rootScope.currentUser = data;
             console.log('currentUser: ', data);
-            $state.go('directory');
           })
           .error(function(err) {
             console.log(err);
@@ -252,6 +256,24 @@ angular.module('GameTime')
 });
 
 angular.module('GameTime')
-.controller('SettingsCtrl', function($scope, $rootScope) {
-  console.log('SettingsCtrl loaded.');
+.controller('SettingsCtrl', function($scope, $rootScope, $http, $state, URL) {
+  $scope.updateUser = function() {
+    console.log('updating user');
+    $http.patch(URL.SERVER + '/user', {
+      md5: $scope.currentUser.md5,
+      image: $scope.user.newImage,
+      playStyle: $scope.user.playStyle
+    }).success(function() {
+      $scope.currentUser.image = $scope.user.newImage;
+      $scope.currentUser.playStyle = $scope.user.playStyle;
+      swal({
+        title: 'saved!',
+        text: 'your settings have been saved to your profile',
+        type: 'success'
+      }, function() {
+      });
+    }).error(function(err) {
+      console.log(err);
+    });
+  }
 });

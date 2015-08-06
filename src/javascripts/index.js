@@ -1,7 +1,10 @@
 var app = angular.module('GameTime', ['ui.router', 'firebase']);
 
-app.run(function() {
-  console.log('Gametime online');
+app.run(function ($rootScope, $state, $log) {
+  $rootScope.$on('$stateChangeError', function () {
+    // Redirect user to our login page
+    $state.go('login');
+  });
 });
 
 app.constant('URL', {

@@ -22,13 +22,17 @@ h5 img {
   margin-bottom: 10px;
 }
 
+.avatar-lg {
+  width: 250px;
+}
+
 .avatar-profile {
   margin-top: 5vh;
 }
 
 .avatar-profile img {
   display: block;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 .avatar-profile p {
@@ -37,7 +41,7 @@ h5 img {
 
 .directory .card {
   margin-top: 50px;
-  padding: 0px 15px 15px 15px;
+  padding: 0 15px 15px 15px;
 }
 
 .directory span, .directory p {
