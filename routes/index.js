@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var md5 = require('md5');
 var User = require('../app/models/user.js');
-var Message = require('../app/models/message.js');
+var Message = require('../app/models/user.js');
 var mongoose = require('mongoose');
 var bnet = require('battlenet-api')();
 var lookup = require('lolking-lookup');
@@ -15,6 +15,38 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/message', function(req, res) {
+  var requestedUser = req.body.md5;
+
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    console.log('found user');
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+
+    var message = new Message({
+      body: req.body.body,
+      sender: req.body.sender
+    })
+
+    user.messages.push(message);
+
+    message.save();
+    user.save(function(err, savedUser) {
+      if (err) {
+        console.log(err);
+        res.status(400).json({ error: "Validation Failed" });
+      }
+      console.log("User Saved:", savedUser);
+      res.json(savedUser);
+    });
+  });
+});
+
+router.post('/match', function(req, res) {
   var requestedUser = req.body.md5;
 
   User.findOne({ md5: requestedUser }, function(err, user) {
@@ -125,7 +157,7 @@ router.patch('/user/', function(req, res) {
 router.get('/user/login/:id', function(req, res) {
   console.log('login');
   var requestedUser = md5(req.params.id);
-  console.log('simple login', req.params.id);
+  console.log('simple login', requestedUser);
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);

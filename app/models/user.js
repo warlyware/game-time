@@ -5,6 +5,12 @@ var messageSchema = mongoose.Schema({
   body: String
 });
 
+var matchScema = mongoose.Schema({
+  sender: String,
+  time: Date,
+  game: String
+});
+
 var userSchema = mongoose.Schema({
   email: String,
   sc2: String,
@@ -29,3 +35,4 @@ var userSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Message', messageSchema);
