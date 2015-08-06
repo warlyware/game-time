@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var md5 = require('md5');
-var Match = require('../app/models/match.js');
 var mongoose = require('mongoose');
-var moment = require('moment');
 
 mongoose.connect('mongodb://heroku_6mm8k2vr:j2llrlvlvu6pfr7os0m804pdj8@ds041188.mongolab.com:41188/heroku_6mm8k2vr');
 
