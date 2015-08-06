@@ -134,7 +134,7 @@ h2.intro-header {
   margin-top: 5vh;
 }
 
-.profile-sidebar button {
+.profile-sidebar .btn {
   width: 20vw;
 }
 
@@ -158,4 +158,8 @@ h2.intro-header {
 .profile-sidebar .text-negative {
   font-size: 3em;
   color: red;
+}
+
+.ui-datepicker-calendar {
+  background-color: white !important;
 }

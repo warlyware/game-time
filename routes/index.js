@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var md5 = require('md5');
 var User = require('../app/models/user.js');
+var Message = require('../app/models/message.js');
 var mongoose = require('mongoose');
 var bnet = require('battlenet-api')();
 var lookup = require('lolking-lookup');
@@ -11,6 +12,54 @@ mongoose.connect('mongodb://heroku_6mm8k2vr:j2llrlvlvu6pfr7os0m804pdj8@ds041188.
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+
+router.get('/message/:userId', function(req, res) {
+  var requestedUser = req.params.userId;
+  console.log(req.params.userId);
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+    console.log(user);
+    res.json(user.messages);
+  });
+});
+
+router.post('/message', function(req, res) {
+  var requestedUser = req.body.md5;
+
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    console.log('found user');
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+
+    var message = new Message({
+      body: req.body.body,
+      sender: req.body.sender
+    })
+
+    user.messages.push(message);
+
+    message.save();
+    user.save(function(err, savedUser) {
+      if (err) {
+        console.log(err);
+        res.status(400).json({ error: "Validation Failed" });
+      }
+      console.log("User Saved:", savedUser);
+      res.json(savedUser);
+    });
+  });
 });
 
 router.post('/user', function(req, res) {
@@ -121,6 +170,8 @@ router.get('/user/:id', function(req, res) {
     res.json(user);
   });
 });
+
+
 
 router.get('/sc2data/:sc2id/:sc2', function(req, res) {
   var sc2name = req.params.sc2;

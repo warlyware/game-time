@@ -82,5 +82,13 @@
         <button type="submit" class="btn waves-effect waves-light btn">update</button>
       </form>
     </div>
+    <div class="card col s12 m4 offset-m4">
+      <h4>messages</h4>
+      <div class="" ng-repeat="msg in messages">
+        <h5>from: {{msg.sender}}</h5>
+        <p>{{msg.body}}</p>
+      </div>
+    </div>
+
   </div>
 </div>

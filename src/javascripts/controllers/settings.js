@@ -1,5 +1,17 @@
 angular.module('GameTime')
 .controller('SettingsCtrl', function($scope, $rootScope, $http, $state, URL) {
+
+  $scope.getMessages = function() {
+    $http.get(URL.SERVER = '/user/' + $rootScope.currentUser.md5)
+      .success(function(messages) {
+        $scope.messages = messages;
+        console.log(messages);
+      })
+      .error(function(err) {
+        console.error(err);
+      })
+  }
+
   $scope.updateUser = function() {
     console.log('updating user');
     $http.patch(URL.SERVER + '/user', {

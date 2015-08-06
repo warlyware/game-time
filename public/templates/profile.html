@@ -8,7 +8,9 @@
       </div>
       <button class="btn waves-effect waves-light" ng-click="openMessageModal()">message</button>
       <br><br>
-      <button class="btn waves-effect waves-light">request match</button>
+      <!-- Request Match Modal Trigger -->
+      <a class="waves-effect waves-light btn modal-trigger" href="#requestAMatch">Modal</a>
+
       <div class="feedback-wrapper">
         <h5>Positive Feedback:</h5>
         <div class="text-positive">{{user.feedback.positive}} %</div>
@@ -71,7 +73,7 @@
       </div>
 
       <div class="row">
-        <form>
+        <form name="newMessage">
           <div class="input-field col s12">
             <textarea id="textarea1" class="materialize-textarea"></textarea>
             <label for="textarea1">Played a game with this user?  Leave feedback!</label>
@@ -82,5 +84,22 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+
+<!-- Request Match Modal  -->
+<div id="requestAMatch" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Request a Match</h4>
+    <div class="col sm-12">
+      <form name="requestMatchForm">
+        {{matchDate}}
+        <input type="text" id="datepicker">
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">cancel</a>
   </div>
 </div>

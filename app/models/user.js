@@ -1,5 +1,10 @@
 var mongoose = require('mongoose');
 
+var messageSchema = mongoose.Schema({
+  sender: String,
+  body: String
+});
+
 var userSchema = mongoose.Schema({
   email: String,
   sc2: String,
@@ -12,6 +17,7 @@ var userSchema = mongoose.Schema({
   lol: String,
   primaryUsername: String,
   md5: String,
+  messages: [messageSchema],
   endorsements: {
     skilled: String,
     friendly: String

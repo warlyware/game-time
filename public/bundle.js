@@ -188,6 +188,16 @@ angular.module('GameTime')
 .controller('ProfileCtrl', function($scope, $rootScope, $state, $stateParams, $http, URL) {
   console.log('ProfileCtrl loaded.');
 
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+
+
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+
   $http.get(URL.SERVER + '/user/' + $stateParams.id)
     .success(function(user) {
       console.log('user: ', user);
@@ -257,6 +267,17 @@ angular.module('GameTime')
 
 angular.module('GameTime')
 .controller('SettingsCtrl', function($scope, $rootScope, $http, $state, URL) {
+
+  $scope.getMessages = function() {
+    $http.get(URL.SERVER = '/user/' + $rootScope.currentUser.md5)
+      .success(function(data) {
+        console.log(data);
+      })
+      .error(function(err) {
+        console.error(err);
+      })
+  }
+
   $scope.updateUser = function() {
     console.log('updating user');
     $http.patch(URL.SERVER + '/user', {
