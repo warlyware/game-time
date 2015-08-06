@@ -3,9 +3,11 @@ var router = express.Router();
 var md5 = require('md5');
 var User = require('../app/models/user.js');
 var Message = require('../app/models/message.js');
+var Match = require('../app/models/match.js');
 var mongoose = require('mongoose');
 var bnet = require('battlenet-api')();
 var lookup = require('lolking-lookup');
+var moment = require('moment');
 
 mongoose.connect('mongodb://heroku_6mm8k2vr:j2llrlvlvu6pfr7os0m804pdj8@ds041188.mongolab.com:41188/heroku_6mm8k2vr');
 
@@ -59,14 +61,18 @@ router.post('/match', function(req, res) {
       return;
     }
 
-    var message = new Message({
-      body: req.body.body,
-      sender: req.body.sender
+    var matchMoment = moment(req.body.Matchtime).format("dddd, MMMM Do, h:mm:ss a");
+
+    var match = new Match({
+      game: req.body.game,
+      time: req.body.matchTime,
+      sender: req.body.sender,
+      formattedTime: matchMoment
     })
 
-    user.messages.push(message);
+    user.matches.push(match);
 
-    message.save();
+    match.save();
     user.save(function(err, savedUser) {
       if (err) {
         console.log(err);

@@ -23,6 +23,7 @@ var userSchema = mongoose.Schema({
   lol: String,
   primaryUsername: String,
   md5: String,
+  matches: [matchScema],
   messages: [messageSchema],
   endorsements: {
     skilled: String,

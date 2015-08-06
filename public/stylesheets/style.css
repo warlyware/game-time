@@ -1,6 +1,3 @@
-div {
-  border: #f00 !important;
-}
 
 body {
   font-family: Arial, sans-serif;
@@ -124,6 +121,10 @@ h2.intro-header {
 
 .intro-text-wrapper {
   margin-top: 50px;
+}
+
+.messages-column {
+  margin-left: 10px !important; 
 }
 
 .profile .portrait {
