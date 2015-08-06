@@ -43,6 +43,36 @@ router.post('/', function(req, res) {
   });
 });
 
+
+router.delete('/', function(req, res) {
+  var requestedUser = req.body.md5;
+  var matchId = req.body.matchId;
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+    Match.findOne({ _id: matchId }, function(err, match) {
+      if (err) {
+        res.send(err);
+      }
+      if (match === null) {
+        res.status(404).json({ error: "No matches" });
+        return;
+      }
+
+      match.remove();
+
+    });
+    console.log(user);
+    res.json(user);
+  });
+});
+
+
 router.get('/:id', function(req, res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
