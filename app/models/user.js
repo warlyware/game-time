@@ -5,12 +5,6 @@ var messageSchema = mongoose.Schema({
   body: String
 });
 
-var matchScema = mongoose.Schema({
-  sender: String,
-  time: Date,
-  game: String
-});
-
 var userSchema = mongoose.Schema({
   email: String,
   sc2: String,
@@ -23,7 +17,7 @@ var userSchema = mongoose.Schema({
   lol: String,
   primaryUsername: String,
   md5: String,
-  matches: [matchScema],
+  matches: [{type: mongoose.Schema.Types.ObjectId, ref:'Match'}],
   messages: [messageSchema],
   endorsements: {
     skilled: String,
