@@ -14,22 +14,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/message/:userId', function(req, res) {
-  var requestedUser = req.params.userId;
-  console.log(req.params.userId);
-  User.findOne({ md5: requestedUser }, function(err, user) {
-    if (err) {
-      res.send(err);
-    }
-    if (user === null) {
-      res.status(404).json({ error: "User Not Found" });
-      return;
-    }
-    console.log(user);
-    res.json(user.messages);
-  });
-});
-
 router.post('/message', function(req, res) {
   var requestedUser = req.body.md5;
 
