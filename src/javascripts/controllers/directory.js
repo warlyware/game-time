@@ -1,5 +1,12 @@
 angular.module('GameTime')
-.controller('DirectoryCtrl', function($scope, $state) {
+.controller('DirectoryCtrl', function($scope, $state, $http, URL) {
   console.log('DirectoryCtrl loaded.');
-  $('#sc2filter').prop('checked');
+  $http.get(URL.SERVER + '/user')
+    .success(function(users) {
+      console.log(users);
+      $scope.users = users;
+    })
+    .error(function(err) {
+      console.log(err);
+    })
 });

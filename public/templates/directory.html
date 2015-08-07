@@ -4,20 +4,19 @@
 
       <div class="card">
         <div class="card-content black-text">
-          <div class="card-title black-text center">search for user</div>
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s9">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="icon_prefix" type="text" class="validate">
-                  <label for="icon_prefix">username</label>
-                </div>
-                <div class="col s3">
-                  <button class="btn waves-effect">search</button>
-                </div>
+        <div class="card-title black-text center">search for user</div>
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s9">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">username</label>
               </div>
-            </form>
-
+              <div class="col s3">
+                <button class="btn waves-effect">search</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -45,103 +44,34 @@
     </div>
   </div>
 
-
   <div class="row">
     <table class="bordered">
       <thead>
         <tr>
             <th data-field="id">user</th>
             <th data-field="name">user feedback</th>
-            <th data-field="price">most played</th>
+            <th data-field="price">games played</th>
         </tr>
       </thead>
 
       <tbody>
 
-        <tr ng-show="Search.sc2">
+        <tr ng-repeat="user in users">
           <td>
             <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              <a href="#/profile/26a58b9e6ef5c3d61aa04d820ba35ba1">scorpling</a>
+              <img ng-src="{{user.image}}" alt="">
+              <a href="#/profile/{{user.md5}}">{{user.primaryUsername}}</a>
             </p>
           </td>
           <td>
-            <span class="text-positive">80%</span>
+            <span class="text-positive">{{user.feedback.positive}}%</span>
             <span>/</span>
-            <span class="text-negative">20%</span>
-          </td>
-          <td><p class="flow-text">starcraft 2</p></td>
-        </tr>
-
-        <tr ng-show="Search.sc2">
-          <td>
-            <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              uSErName426
-            </p>
+            <span class="text-negative">{{user.feedback.negative}}%</span>
           </td>
           <td>
-            <span class="text-positive">80%</span>
-            <span>/</span>
-            <span class="text-negative">20%</span>
+            <p class="flow-text" ng-if="user.sc2">starcraft 2</p>
+            <p class="flow-text" ng-if="user.lol">league of legends</p>
           </td>
-          <td><p class="flow-text">starcraft 2</p></td>
-        </tr>
-        <tr ng-show="Search.sc2">
-          <td>
-            <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              onEMOREuser53
-            </p>
-          </td>
-          <td>
-            <span class="text-positive">60%</span>
-            <span>/</span>
-            <span class="text-negative">40%</span>
-          </td>
-          <td><p class="flow-text">starcraft 2</p></td>
-        </tr>
-        <tr ng-show="Search.lol">
-          <td>
-            <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              ThisISaUSEr31
-            </p>
-          </td>
-          <td>
-            <span class="text-positive">70%</span>
-            <span>/</span>
-            <span class="text-negative">30%</span>
-          </td>
-          <td><p class="flow-text">league of legends</p></td>
-        </tr>
-        <tr ng-show="Search.lol">
-          <td>
-            <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              AnoTHErusER54
-            </p>
-          </td>
-          <td>
-            <span class="text-positive">50%</span>
-            <span>/</span>
-            <span class="text-negative">50%</span>
-          </td>
-          <td><p class="flow-text">league of legends</p></td>
-        </tr>
-        <tr ng-show="Search.lol">
-          <td>
-            <p class="username flow-text">
-              <img src="http://placehold.it/35x35" alt="" class="hide-on-med-and-down">
-              oneMoreUSEr55
-            </p>
-          </td>
-          <td>
-            <span class="text-positive">40%</span>
-            <span>/</span>
-            <span class="text-negative">60%</span>
-          </td>
-          <td><p class="flow-text">league of legends</p></td>
         </tr>
       </tbody>
     </table>

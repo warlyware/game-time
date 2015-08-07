@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col s12 m8 profile-main">
-      <div class="card">
+      <div class="card" ng-if="user.sc2">
         <div class="card-content">
           <div class="card-title black-text">Starcraft 2</div>
           <!-- <img ng-src="{{sc2data.portrait.url}}" class="portrait" alt=""> -->
@@ -35,7 +35,7 @@
           <h6>Team Rank: {{sc2data.career.highestTeamRank}}</h6>
         </div>
       </div>
-      <div class="card">
+      <div class="card" ng-if="user.lol">
         <div class="card-content">
           <div class="card-title black-text">Leage of Legends</div>
           <h5>{{loldata.name}}</h5>

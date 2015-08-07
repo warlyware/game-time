@@ -112,5 +112,19 @@ router.post('/', function(req, res) {
   });
 });
 
+router.get('/', function(req, res) {
+  console.log(req.params.id);
+  User.find({ }, function(err, users) {
+    if (err) {
+      res.send(err);
+    }
+    if (users === null) {
+      res.status(404).json({ error: "Users Not Found" });
+      return;
+    }
+    console.log(users);
+    res.json(users);
+  });
+});
 
 module.exports = router;

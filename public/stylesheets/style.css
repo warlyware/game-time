@@ -68,6 +68,10 @@ h5 img {
   color: red;
 }
 
+.directory .username img {
+  width: 35px;
+}
+
 .endorsement {
   float: left;
   color: white;
@@ -124,7 +128,7 @@ h2.intro-header {
 }
 
 .messages-column {
-  margin-left: 10px !important; 
+  margin-left: 10px !important;
 }
 
 .profile .portrait {
