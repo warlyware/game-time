@@ -5,7 +5,8 @@ var matchSchema = mongoose.Schema({
   time: Date,
   game: String,
   formattedTime: String,
-  originUser: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+  originUser: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  invitedUser: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
 });
 
 module.exports = mongoose.model('Match', matchSchema);

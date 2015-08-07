@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user.js');
+var md5 = require('md5');
 
 router.get('/:id', function(req, res) {
   var requestedUser = req.params.id;

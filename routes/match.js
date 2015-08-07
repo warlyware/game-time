@@ -5,75 +5,205 @@ var Match = require('../app/models/match.js')
 var moment = require('moment');
 
 router.post('/', function(req, res) {
-  var requestedUser = req.body.md5;
+  var originUser = req.body.originMd5;
+  var invitedUser = req.body.invitedMd5;
 
-  User.findOne({ md5: requestedUser }, function(err, user) {
-    console.log('found user');
+  User.findOne({ md5: originUser }, function(err, oUser) {
+
+    console.log('found user 1');
     if (err) {
       res.send(err);
     }
-    if (user === null) {
+    if (oUser === null) {
       res.status(404).json({ error: "User Not Found" });
       return;
     }
 
-    var matchMoment = moment(req.body.Matchtime).format("dddd, MMMM Do, h:mm:ss a");
-
-    var match = new Match({
-      game: req.body.game,
-      time: req.body.matchTime,
-      sender: req.body.sender,
-      formattedTime: matchMoment,
-      originUser: user._id
-    })
-
-    user.matches.push(match);
-
-    console.log(user);
-    match.save();
-    user.save(function(err, savedUser) {
+    User.findOne({ md5: invitedUser}, function(err, iUser) {
+      console.log('found user 2');
       if (err) {
-        console.log(err);
-        res.status(400).json({ error: "Validation Failed" });
+        res.send(err);
+      }
+      if (iUser === null) {
+        res.status(404).json({ error: "User Not Found" });
         return;
       }
-      console.log("User Saved:", savedUser);
-      res.json(savedUser);
+
+      var matchMoment = moment(req.body.Matchtime).format("dddd, MMMM Do, h:mm:ss a");
+
+      var match = new Match({
+        game: req.body.game,
+        time: req.body.matchTime,
+        sender: oUser.primaryUsername,
+        formattedTime: matchMoment,
+        originUser: oUser._id,
+        invitedUser: iUser._id
+      })
+
+      oUser.matches.push(match);
+      iUser.matches.push(match);
+
+      console.log(iUser);
+      console.log(oUser);
+      match.save();
+
+      oUser.save(function(err, savedUser) {
+        if (err) {
+          console.log(err);
+          res.status(400).json({ error: "Validation Failed" });
+          return;
+        }
+        console.log("Origin User Saved:", savedUser);
+      });
+
+      iUser.save(function(err, savedUser) {
+        if (err) {
+          console.log(err);
+          res.status(400).json({ error: "Validation Failed" });
+          return;
+        }
+        console.log("Invited User Saved:", savedUser);
+      });
+
+      res.json({ requestor: oUser, invited: iUser });
+
+
+
     });
+
   });
 });
 
-
-router.delete('/', function(req, res) {
-  var requestedUser = req.body.md5;
-  var matchId = req.body.matchId;
-  User.findOne({ md5: requestedUser }, function(err, user) {
+router.delete('/decline/:user/:matchId', function(req, res) {
+  var invitedUser = req.params.user;
+  var matchId = req.params.matchId;
+  User.findOne({ md5: invitedUser }, function(err, iUser) {
+    console.log('found user', iUser);
     if (err) {
       res.send(err);
+      return;
     }
-    if (user === null) {
+    if (iUser === null) {
       res.status(404).json({ error: "User Not Found" });
       return;
     }
+
+
+    iUser.matches.remove({_id: matchId});
+    iUser.save();
+
     Match.findOne({ _id: matchId }, function(err, match) {
+      console.log('found match', match);
       if (err) {
         res.send(err);
+        return;
       }
       if (match === null) {
         res.status(404).json({ error: "No matches" });
         return;
       }
 
+      var originUser = match.originUser;
+
+      User.findOne({ _id: originUser }, function(err, oUser) {
+        if (err) {
+          res.send(err);
+          return;
+        }
+        if (oUser === null) {
+          res.status(404).json({ error: "No matches" });
+          return;
+        }
+        oUser.matches.remove({_id: matchId});
+        oUser.save();
+      });
+
       match.remove();
 
     });
-    console.log(user);
-    res.json(user);
+    res.json(iUser);
   });
 });
 
+// Route for player to cancel own invite
+router.delete('/cancel/:user/:matchId', function(req, res) {
+  var originUser = req.params.user;
+  var matchId = req.params.matchId;
+  User.findOne({ md5: originUser }, function(err, oUser) {
+    console.log('found user', oUser);
+    if (err) {
+      res.send(err);
+      return;
+    }
+    if (oUser === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
 
-router.get('/:id', function(req, res) {
+
+    oUser.matches.remove({_id: matchId});
+    oUser.save();
+
+    Match.findOne({ _id: matchId }, function(err, match) {
+      console.log('found match', match);
+      if (err) {
+        res.send(err);
+        return;
+      }
+      if (match === null) {
+        res.status(404).json({ error: "No matches" });
+        return;
+      }
+
+      var invitedUser = match.invitedUser;
+
+      User.findOne({ _id: invitedUser }, function(err, iUser) {
+        if (err) {
+          res.send(err);
+          return;
+        }
+        if (iUser === null) {
+          res.status(404).json({ error: "No matches" });
+          return;
+        }
+        iUser.matches.remove({_id: matchId});
+        iUser.save();
+      });
+
+      match.remove();
+
+    });
+    res.json(oUser);
+  });
+});
+
+router.get('/received/:id', function(req, res) {
+  var requestedUser = req.params.id;
+  console.log(req.params.id);
+  User.findOne({ md5: requestedUser }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+    Match.find({ invitedUser: user._id }, function(err, matches) {
+      if (err) {
+        res.send(err);
+      }
+      if (matches === null) {
+        res.status(404).json({ error: "No matches" });
+        return;
+      }
+      res.json(matches);
+
+    });
+    console.log(user);
+  });
+});
+
+router.get('/sent/:id', function(req, res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
