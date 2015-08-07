@@ -34,7 +34,13 @@ angular.module('GameTime')
           })
           .success(function(newUser) {
             console.log('posted to backend:' + newUser.email);
-            $state.go('login');
+            swal({
+              title: 'registered!',
+              text: 'you can now login',
+              type: 'success'
+            }, function() {
+              $state.go('login');
+            });
           });
       }
     });
