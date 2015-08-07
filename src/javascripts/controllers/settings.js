@@ -17,6 +17,10 @@ angular.module('GameTime')
     })
   }
 
+  $scope.acceptMatch = function(match) {
+    console.log('accepting match', match);
+  }
+
 
   // Get match requests
   $scope.getMatches = function() {
@@ -29,8 +33,10 @@ angular.module('GameTime')
       });
 
     $http.get(URL.SERVER + '/match/received/' + $rootScope.currentUser.md5)
-      .success(function(data) {
-        $scope.receivedMatches = data;
+      .success(function(matches) {
+        console.log(matches);
+        $scope.acceptedMatches = matches.accepted;
+        $scope.receivedMatches = matches.received;
       });
   }
 
@@ -56,7 +62,7 @@ angular.module('GameTime')
   angular.element(document).ready(function() {
     setTimeout(function() {
       $scope.getMatches();
-    }, 1000);
+    }, 1200);
   })
 
 

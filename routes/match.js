@@ -37,6 +37,7 @@ router.post('/', function(req, res) {
         sender: oUser.primaryUsername,
         formattedTime: matchMoment,
         originUser: oUser._id,
+        accepted: false,
         invitedUser: iUser._id
       })
 
@@ -71,6 +72,33 @@ router.post('/', function(req, res) {
 
     });
 
+  });
+});
+
+//Route for accepted match
+router.patch('/', function(req, res) {
+
+  var matchId = req.body.matchId;
+
+  Match.findOne({ _id: matchId }, function(err, match) {
+    if (err) {
+      res.send(err);
+    }
+    if (match === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+
+    console.log('match', match);
+    match.accepted = true;
+    match.save(function(err, savedMatch) {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ error: "Validation Failed" });
+    }
+    res.json(savedMatch);
+
+    });
   });
 });
 
@@ -196,7 +224,22 @@ router.get('/received/:id', function(req, res) {
         res.status(404).json({ error: "No matches" });
         return;
       }
-      res.json(matches);
+
+      var acceptedMatches = [];
+      var receivedMatches = [];
+      console.log('matches:', matches.length);
+      for (var i = 0; i < matches.length; i++) {
+        console.log('loop:', matches[i]);
+        if (matches[i].accepted === true) {
+          console.log('accepted match:', matches[i]);
+          acceptedMatches.push(matches[i]);
+        } else {
+          console.log('not accepted match:', matches[i]);
+          receivedMatches.push(matches[i]);
+        }
+      }
+
+      res.json({accepted: acceptedMatches, received: receivedMatches});
 
     });
     console.log(user);

@@ -5,6 +5,7 @@ var matchSchema = mongoose.Schema({
   time: Date,
   game: String,
   formattedTime: String,
+  accepted: Boolean,
   originUser: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   invitedUser: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
 });
