@@ -1,5 +1,5 @@
 <div class="contianer">
-  <div class="row login-card">
+  <div class="row login-card profile-column">
     <div class="card col s12 m3 offset-m1">
       <h4 class="center">{{currentUser.primaryUsername}}</h4>
       <img ng-src="{{currentUser.image}}" alt="" class="avatar-lg">
@@ -25,60 +25,6 @@
           </div>
         </div>
 
-        <div class="row">
-          <span>
-            <input type="checkbox" id="Starcraft2" name="Starcraft2" ng-model="ModelData.sc2"/>
-            <label for="Starcraft2">starcraft 2</label>
-          </span>
-          <span>
-            <input type="checkbox" id="lol" name="lol" ng-model="ModelData.lol"/>
-            <label for="lol">league of legends</label>
-          </span>
-        </div>
-        <div class="row">
-          <div ng-show="ModelData.sc2">
-            <div class="input-field col s8">
-              <input id="sc2" type="text" ng-model="user.sc2">
-              <label for="sc2">starcraft 2 player name</label>
-            </div>
-            <div class="col s4">
-              <span class="make-primary">
-                <input name="usernameGroup" type="radio" id="sc2-primary"
-                       ng-disabled="!user.sc2.length"
-                       ng-model="user.primary"
-                       value="sc2"
-                       />
-                <label for="sc2-primary">make primary</label>
-              </span>
-            </div>
-
-            <div class="input-field col s8">
-              <input id="sc2id" type="text" ng-model="user.sc2id">
-              <label for="sc2id">starcraft 2 player id</label>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div ng-show="ModelData.lol">
-            <div class="input-field col s8">
-              <input id="sc2" type="text" ng-model="user.lol">
-              <label for="sc2">LoL player name</label>
-            </div>
-            <div class="col s4">
-              <span class="make-primary">
-                <input name="usernameGroup" type="radio" id="lol-primary"
-                       ng-disabled="!user.lol.length"
-                       ng-model="user.primary"
-                       value="lol"
-                       />
-                <label for="lol-primary">make primary</label>
-              </span>
-            </div>
-
-          </div>
-        </div>
         <button type="submit" class="btn waves-effect waves-light btn">update</button>
       </form>
     </div>
@@ -124,9 +70,6 @@
               <h5 class="black-text">on</h5>
               <h5 class="black-text">{{match.formattedTime}}</h5>
             </div>
-            <div class="card-action">
-              <a href="" ng-click="cancelMatch(match)">cancel</a>
-            </div>
           </div>
         </div>
 
@@ -141,7 +84,7 @@
         </div>
 
         <div class="card" ng-repeat="match in requestedMatches">
-          <span class="card-title">{{match.sender}} wants to play you in</span>
+          <span class="card-title">you want to play {{match.invited}}</span>
           <div class="card-content white-text col s10 offset-s1">
             <div>
               <h4 class="black-text">{{match.game}}</h4>

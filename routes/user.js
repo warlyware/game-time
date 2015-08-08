@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user.js');
 var md5 = require('md5');
+var lookup = require('lolking-lookup');
+
+var userImg;
 
 router.get('/:id', function(req, res) {
   var requestedUser = req.params.id;
@@ -85,7 +88,8 @@ router.get('/login/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  console.log(req.body);
+
+  console.log('user image', userImg);
   var user = new User({
     primaryUsername: req.body.primaryUsername,
     email: req.body.email,
@@ -102,14 +106,37 @@ router.post('/', function(req, res) {
     }
   });
 
-  user.save(function(err, savedUser) {
-    if (err) {
-      console.log(err);
-      res.status(400).json({ error: "Validation Failed" });
-    }
-    console.log("User Saved:", savedUser);
-    res.json(savedUser);
-  });
+  if (user.lol) {
+    lookup('na', req.body.lol, function(error, loluser) {
+      console.log('loluser:', loluser);
+      if (error) {
+        throw error;
+        res.status(400).json('API error');
+      }
+      imgId = loluser.profile_icon_id;
+      user.image = 'http://lkimg.zamimg.com/shared/riot/images/profile_icons/profileIcon' + imgId + '.jpg';
+      user.save(function(err, savedUser) {
+        if (err) {
+          console.log(err);
+          res.status(400).json({ error: "Validation Failed" });
+        }
+
+        console.log("User Saved:", savedUser);
+        res.json(savedUser);
+      });
+    });
+  } else {
+    user.image = 'http://zdjecia.pl.sftcdn.net/pl/scrn/115000/115712/starcraft-2-33.png';
+    user.save(function(err, savedUser) {
+      if (err) {
+        console.log(err);
+        res.status(400).json({ error: "Validation Failed" });
+      }
+
+      console.log("User Saved:", savedUser);
+      res.json(savedUser);
+    });
+  }
 });
 
 router.get('/', function(req, res) {

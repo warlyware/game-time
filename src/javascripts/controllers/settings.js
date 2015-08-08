@@ -19,6 +19,12 @@ angular.module('GameTime')
 
   $scope.acceptMatch = function(match) {
     console.log('accepting match', match);
+    $http.patch(URL.SERVER + '/match', {
+      matchId: match._id
+    })
+    .success(function(savedMatch) {
+      console.log('saved match', savedMatch);
+    });
   }
 
 

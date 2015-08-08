@@ -233,13 +233,21 @@ angular.module('GameTime')
           .error(function(err) {
             console.log(err);
           });
+
+          $http.get(URL.SERVER + '/loldata/' + $scope.user.lol + '/heroes')
+            .success(function(lolHeroes) {
+              console.log(lolHeroes);
+              $scope.lolHeroes = lolHeroes;
+            })
+            .error(function(err) {
+              console.log(err);
+            });
       }
+
     })
     .error(function(err) {
       console.log(err);
     });
-
-
 
   $scope.openMessageModal = function() {
     swal({
@@ -299,6 +307,12 @@ angular.module('GameTime')
 
   $scope.acceptMatch = function(match) {
     console.log('accepting match', match);
+    $http.patch(URL.SERVER + '/match', {
+      matchId: match._id
+    })
+    .success(function(savedMatch) {
+      console.log('saved match', savedMatch);
+    });
   }
 
 

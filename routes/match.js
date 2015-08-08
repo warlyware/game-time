@@ -89,7 +89,7 @@ router.patch('/', function(req, res) {
       return;
     }
 
-    console.log('match', match);
+    console.log('```````match```````', match);
     match.accepted = true;
     match.save(function(err, savedMatch) {
     if (err) {

@@ -34,6 +34,7 @@ h5 img {
 .avatar-profile img {
   display: block;
   margin: 0 auto;
+  width: 250px;
 }
 
 .avatar-profile p {
@@ -132,8 +133,8 @@ h2.intro-header {
   margin-top: 50px;
 }
 
-.messages-column {
-  margin-left: 10px !important;
+.profile-column {
+  margin-right: 10px !important;
 }
 
 .profile .portrait {
