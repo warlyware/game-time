@@ -17,6 +17,7 @@ angular.module('GameTime')
       console.log('user: ', user);
       $scope.user = user;
       $scope.endorsements = user.endorsements;
+      $scope.feedbacks = user.feedbacks;
       console.log(user);
       if (user.sc2) {
         $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
@@ -65,7 +66,35 @@ angular.module('GameTime')
         swal.showInputError("You need to write something!");
         return false
       }
-      swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+      $http.post(URL.SERVER + '/message', {
+        sender: $rootScope.currentUser.primaryUsername,
+        body: inputValue,
+        md5: $scope.user.md5
+      })
+      .success(function(data) {
+        swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+      });
+  }
+
+  $scope.submitFeedback = function() {
+    $http.post(URL.SERVER + '/feedback', {
+      poster: $rootScope.currentUser.primaryUsername,
+      body: $scope.feedback.body,
+      feedbackVal: $scope.feedbackVal,
+      md5: $scope.user.md5
+    })
+    .success(function() {
+      swal({
+        title: 'feedback saved!',
+        text: 'thank you for submitting your feedback on ' + $scope.user.primaryUsername,
+        type: 'success'
+      }, function() {
+        $state.reload();
+      });
+    })
+    .error(function(err) {
+      console.log(err);
+    });
   }
 
   $scope.endorse = function(endorsement, val, e) {

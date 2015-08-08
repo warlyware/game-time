@@ -39,22 +39,47 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col s12 m3 matches-column">
+
+        <div class="card" ng-repeat="msg in currentUser.messages">
+          <div class="card-content black-text">
+            <span class="card-title">from: {{msg.sender}}</span>
+            <p class="left flow-text">{{msg.body}}</p>
+            <br>
+            <hr>
+            <a href="" class="right" ng-click="deleteMessage(msg)">delete</a>
+          </div>
+        </div>
+
         <div class="card" ng-repeat="msg in currentUser.messages">
           <span class="card-title">from: {{msg.sender}}</span>
           <div class="card-content white-text col s10 offset-s1">
             <div>
-              <p class="black-text left">{{msg.body}}</p>
+              <p class="left flow-text black-text">{{msg.body}}</p>
             </div>
           </div>
+          <div class="card-action">
+            <a href="" class="right" ng-click="deleteMessage(msg)">delete</a>
+          </div>
         </div>
+
+        <!-- <div class="card" ng-repeat="msg in currentUser.messages">
+          <span class="card-title">from: {{msg.sender}}</span>
+          <div class="card-content white-text col s10 offset-s1">
+            <p class="black-text left message-text">{{msg.body}}</p>
+          </div>
+          <div class="card-action">
+            <a href="" ng-click="deleteMessage(msg)">delete</a>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="col s12 m3 matches-column">
 
         <h5 class="center">matches you've accepted</h5>
 
         <div class="card" ng-if="!acceptedMatches.length">
-          <div class="card-content white-text col s10 offset-s1">
+          <div class="card-content col s10 offset-s1">
             <div>
               <p class="black-text left">You have 0 accepted matches</p>
             </div>
@@ -64,11 +89,11 @@
 
         <div class="card" ng-repeat="match in acceptedMatches">
           <span class="card-title">you are playing {{match.sender}} in</span>
-          <div class="card-content white-text col s10 offset-s1">
+          <div class="card-content col s10 offset-s1">
             <div>
-              <h4 class="black-text">{{match.game}}</h4>
-              <h5 class="black-text">on</h5>
-              <h5 class="black-text">{{match.formattedTime}}</h5>
+              <h5 class="black-text">{{match.game}}</h5>
+              <p class="black-text">on</p>
+              <p class="black-text">{{match.formattedTime}}</p>
             </div>
           </div>
         </div>
@@ -76,7 +101,7 @@
         <h5 class="center">matches you've requested</h5>
 
         <div class="card" ng-if="!requestedMatches.length">
-          <div class="card-content white-text col s10 offset-s1">
+          <div class="card-content col s10 offset-s1">
             <div>
               <p class="black-text left">You have 0 requested matches</p>
             </div>
@@ -84,12 +109,12 @@
         </div>
 
         <div class="card" ng-repeat="match in requestedMatches">
-          <span class="card-title">you want to play {{match.invited}}</span>
-          <div class="card-content white-text col s10 offset-s1">
+          <span class="card-title">you want to play {{match.receiver}} in</span>
+          <div class="card-content col s10 offset-s1">
             <div>
-              <h4 class="black-text">{{match.game}}</h4>
-              <h5 class="black-text">on</h5>
-              <h5 class="black-text">{{match.formattedTime}}</h5>
+              <h5 class="black-text">{{match.game}}</h5>
+              <p class="black-text">on</p>
+              <p class="black-text">{{match.formattedTime}}</p>
             </div>
             <div class="card-action">
               <a href="" ng-click="cancelMatch(match)">cancel</a>
@@ -100,7 +125,7 @@
         <h5 class="center">match requests from others</h5>
 
         <div class="card" ng-if="!receivedMatches.length">
-          <div class="card-content white-text col s10 offset-s1">
+          <div class="card-content col s10 offset-s1">
             <div>
               <p class="black-text left">You have 0 received matches</p>
             </div>
@@ -109,11 +134,11 @@
 
         <div class="card" ng-repeat="match in receivedMatches">
           <span class="card-title">{{match.sender}} wants to play you in</span>
-          <div class="card-content white-text col s10 offset-s1">
+          <div class="card-content col s10 offset-s1">
             <div>
-              <h4 class="black-text">{{match.game}}</h4>
-              <h5 class="black-text">on</h5>
-              <h5 class="black-text">{{match.formattedTime}}</h5>
+              <h5 class="black-text">{{match.game}}</h5>
+              <p class="black-text message-text">on</p>
+              <p class="black-text message-text">{{match.formattedTime}}</p>
             </div>
             <div class="card-action">
               <a href="" ng-click="acceptMatch(match)">accept</a>

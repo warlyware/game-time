@@ -35,7 +35,10 @@ router.post('/', function(req, res) {
         game: req.body.game,
         time: req.body.matchTime,
         sender: oUser.primaryUsername,
+        receiver: iUser.primaryUsername,
         formattedTime: matchMoment,
+        originMd5: oUser.md5,
+        invitedMd5: iUser.md5,
         originUser: oUser._id,
         accepted: false,
         invitedUser: iUser._id
@@ -66,7 +69,7 @@ router.post('/', function(req, res) {
         console.log("Invited User Saved:", savedUser);
       });
 
-      res.json({ requestor: oUser, invited: iUser });
+      res.json({ requestor: oUser, invited: iUser, match: match });
 
 
 

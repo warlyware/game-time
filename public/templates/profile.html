@@ -13,9 +13,9 @@
 
       <div class="feedback-wrapper">
         <h5>Positive Feedback:</h5>
-        <div class="text-positive">{{user.feedback.positive}} %</div>
+        <div class="text-positive">{{user.feedback.positivePercentage}} %</div>
         <h5>Negative Feedback:</h5>
-        <div class="text-negative">{{user.feedback.negative}} %</div>
+        <div class="text-negative">{{user.feedback.negativePercentage}} %</div>
       </div>
     </div>
     <div class="col s12 m8 profile-main">
@@ -74,24 +74,34 @@
       <hr width="40%">
       <div class="row">
         <h4 class="center">User Feedback</h4>
-        <div class="card-panel">
-          <h5>mRfakeUser313</h5>
-          <span>Tilde farm-to-table health goth, keffiyeh art party chambray pickled forage banjo swag
-            tote bag Carles hashtag vinyl pour-over.
-            Fixie drinking vinegar PBR&B Tumblr. Sustainable normcore Odd Future jean shorts,
-            kitsch put a bird on it flannel single-origin coffee gentrify Marfa DIY banh mi.
-            Messenger bag butcher VHS pickled. Wes Anderson cold-pressed flannel sustainable food truck.</span>
+        <div class="card-panel" ng-repeat="feedback in feedbacks">
+          <h5>{{feedback.poster}}</h5>
+          <h6 class="{{feedback.feedbackVal}}">
+              {{feedback.feedbackVal}}
+          </h6>
+          <span>{{feedback.body}}</span>
         </div>
       </div>
 
       <div class="row">
-        <form name="newMessage">
+        <form name="newMessage" ng-submit="submitFeedback()">
           <div class="input-field col s12">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <textarea id="textarea1" class="materialize-textarea" ng-model="feedback.body"></textarea>
             <label for="textarea1">Played a game with this user?  Leave feedback!</label>
+            <h6 class="center">Did you enjoy playing with {{user.primaryUsername}}?</h6>
+            <div class="center feedback-radio-wrapper">
+              <span>
+                <input name="feedback" type="radio" id="positive-feedback" ng-model="feedbackVal" value="positive" />
+                <label for="positive-feedback">yep!</label>
+              </span>
+              <span>
+                <input name="feedback" type="radio" id="negative-feedback" ng-model="feedbackVal" value="negative" />
+                <label for="negative-feedback">nope.</label>
+              </span>
+            </div>
           </div>
           <div class="center">
-            <button type="submit" class="center btn wave-effects wave-light">submit feedback</button>
+            <button type="submit" class="center btn wave-effects wave-light submit-feedback">submit feedback</button>
           </div>
         </form>
       </div>
@@ -104,7 +114,7 @@
 <div id="requestAMatch" class="modal bottom-sheet">
   <div class="modal-content">
     <h4>Request a Match</h4>
-    <div class="col sm-12">
+    <div class="col sm-12 m-3">
       <form name="requestMatchForm">
         {{matchDate}}
         <input type="text" id="datepicker">

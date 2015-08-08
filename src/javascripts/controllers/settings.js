@@ -1,11 +1,22 @@
 angular.module('GameTime')
-.controller('SettingsCtrl', function($scope, $rootScope, $http, $state, URL) {
+.controller('SettingsCtrl', function($scope, $rootScope, $http, $state, $window, URL) {
   //
+
   $scope.declineMatch = function(match) {
     console.log('declining match', match._id);
     var invitedMd5 = $rootScope.currentUser.md5;
     $http.delete(URL.SERVER + '/match/decline/' + invitedMd5 + '/' + match._id).success(function() {
-      $state.reload();
+
+      var msgBody = 'Your match with ' + match.receiver + ' to play ' + match.game + ' on ' + match.formattedTime + ' has been declined';
+      $http.post(URL.SERVER + '/message', {
+        sender: 'System',
+        body: msgBody,
+        md5: match.originMd5
+      })
+      .success(function(data) {
+        swal("Thanks!", "Your match request was cancelled", "success"); });
+        $state.reload();
+
     })
   }
 
@@ -13,8 +24,16 @@ angular.module('GameTime')
     console.log('canceling match', match._id);
     var md5 = $rootScope.currentUser.md5;
     $http.delete(URL.SERVER + '/match/cancel/' + md5 + '/' + match._id).success(function() {
-      $state.reload();
-    })
+      var msgBody = match.sender + ' has cancelled the request to play ' + match.game + ' on ' + match.formattedTime
+      $http.post(URL.SERVER + '/message', {
+        sender: 'System',
+        body: msgBody,
+        md5: match.invitedMd5
+      })
+      .success(function(data) {
+        swal("Thanks!", "Your match request was cancelled", "success"); });
+        $state.reload();
+      });
   }
 
   $scope.acceptMatch = function(match) {
@@ -46,6 +65,18 @@ angular.module('GameTime')
       });
   }
 
+  $scope.getUser = function() {
+    $http.get(URL.SERVER + '/user/' + $rootScope.currentUser.md5)
+      .success(function(data) {
+        $rootScope.currentUser = data;
+      })
+      .error(function(err) {
+        console.error(err);
+      });
+
+  }
+
+
   $scope.updateUser = function() {
     $http.patch(URL.SERVER + '/user', {
       md5: $scope.currentUser.md5,
@@ -65,9 +96,29 @@ angular.module('GameTime')
     });
   }
 
+  $scope.deleteMessage = function(message) {
+    console.log(message);
+    var userId = $scope.currentUser.md5;
+    $http.delete(URL.SERVER + '/message/' + userId + '/' + message._id)
+      .success(function(user) {
+        // REPLACE WITH TOAST
+        console.log(user);
+        swal({
+          title: 'deleted',
+          text: 'message deleted',
+          type: 'success'
+        }, function() {
+          $scope.currentUser.messages = user.messages;
+          $scope.$apply();
+          // $state.reload();
+        });
+      })
+  }
+
   angular.element(document).ready(function() {
     setTimeout(function() {
       $scope.getMatches();
+      $scope.getUser();
     }, 1200);
   })
 

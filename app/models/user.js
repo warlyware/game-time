@@ -5,6 +5,14 @@ var messageSchema = mongoose.Schema({
   body: String
 });
 
+var feedbacksSchema = mongoose.Schema({
+  poster: String,
+  body: String,
+  poster: String,
+  feedbackVal: String,
+  type: String
+});
+
 var userSchema = mongoose.Schema({
   email: String,
   sc2: String,
@@ -23,9 +31,13 @@ var userSchema = mongoose.Schema({
     skilled: String,
     friendly: String
   },
+  feedbacks: [feedbacksSchema],
   feedback: {
     positive: Number,
-    negative: Number
+    negative: Number,
+    positivePercentage: Number,
+    negativePercentage: Number,
+    total: Number
   }
 });
 

@@ -30,7 +30,7 @@ angular.module('GameTime')
             lol: $scope.user.lol,
             primaryUsername: primaryUsername,
             fbid: userData.uid,
-            playStyle: $scope.user.playStyle
+            playStyle: $scope.user.playStyle,
           })
           .success(function(newUser) {
             console.log('posted to backend:' + newUser.email);

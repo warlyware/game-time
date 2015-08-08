@@ -102,7 +102,10 @@ router.post('/', function(req, res) {
     image: 'http://placehold.it/250x250',
     feedback: {
       positive: 0,
-      negative: 0
+      negative: 0,
+      total: 0,
+      positivePercentage: 0,
+      negativePercentage: 0
     }
   });
 

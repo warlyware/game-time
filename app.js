@@ -11,6 +11,7 @@ var message = require('./routes/message');
 var sc2data = require('./routes/sc2data');
 var loldata = require('./routes/loldata');
 var match = require('./routes/match');
+var feedback = require('./routes/feedback');
 
 var app = express();
 
@@ -32,7 +33,7 @@ app.use('/message', message);
 app.use('/sc2data', sc2data);
 app.use('/loldata', loldata);
 app.use('/match', match);
-
+app.use('/feedback', feedback);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

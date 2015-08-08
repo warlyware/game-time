@@ -1,5 +1,8 @@
 angular.module('GameTime')
 .controller('DirectoryCtrl', function($scope, $state, $http, URL) {
+
+
+
   console.log('DirectoryCtrl loaded.');
   $http.get(URL.SERVER + '/user')
     .success(function(users) {
@@ -9,4 +12,5 @@ angular.module('GameTime')
     .error(function(err) {
       console.log(err);
     })
+
 });

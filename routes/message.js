@@ -23,7 +23,6 @@ router.post('/', function(req, res) {
 
     user.messages.push(message);
 
-    message.save();
     user.save(function(err, savedUser) {
       if (err) {
         console.log(err);
@@ -32,6 +31,28 @@ router.post('/', function(req, res) {
       console.log("User Saved:", savedUser);
       res.json(savedUser);
     });
+  });
+});
+
+router.delete('/:userId/:msgId', function(req, res) {
+  var userId = req.params.userId;
+  var msgId = req.params.msgId;
+  User.findOne({ md5: userId }, function(err, user) {
+    console.log('found user', user);
+    if (err) {
+      res.send(err);
+      return;
+    }
+    if (user === null) {
+      res.status(404).json({ error: "User Not Found" });
+      return;
+    }
+
+
+    user.messages.remove({_id: msgId});
+    user.save();
+
+    res.json(user);
   });
 });
 
