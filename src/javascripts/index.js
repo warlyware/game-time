@@ -40,6 +40,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: './templates/settings.html',
       controller: "SettingsCtrl"
     })
+    .state('messages', {
+      url: '/messages',
+      templateUrl: './templates/messages.html',
+      controller: "SettingsCtrl"
+    })
     .state('directory', {
       url: '/directory',
       templateUrl: './templates/directory.html',

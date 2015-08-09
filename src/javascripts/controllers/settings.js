@@ -74,7 +74,7 @@ angular.module('GameTime')
 
 
   // Get match requests
-  $scope.getMatches = function() {
+  getMatches = function() {
     $http.get(URL.SERVER + '/match/sent/' + $rootScope.currentUser.md5)
       .success(function(data) {
         $scope.requestedMatches = data;
@@ -91,7 +91,7 @@ angular.module('GameTime')
       });
   }
 
-  $scope.getUser = function() {
+  getUser = function() {
     $http.get(URL.SERVER + '/user/' + $rootScope.currentUser.md5)
       .success(function(data) {
         $rootScope.currentUser = data;
@@ -144,12 +144,12 @@ angular.module('GameTime')
   angular.element(document).ready(function() {
     if (!$rootScope.currentUser) {
       setTimeout(function() {
-        $scope.getMatches();
-        $scope.getUser();
+        getMatches();
+        getUser();
       }, 1200);
     } else {
-      $scope.getMatches();
-      $scope.getUser();
+      getMatches();
+      getUser();
     }
   })
 

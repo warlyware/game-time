@@ -1,0 +1,25 @@
+<div class="container">
+    <h5 class="center">messages</h5>
+    <div class="col s10 offset-s1">
+      <div class="card-panel" ng-if="!currentUser.messages.length">
+        <span class="black-text left">You have 0 messages</span>
+        <br>
+      </div>
+    </div>
+
+    <div class="row" ng-repeat="msg in currentUser.messages">
+      <div class="col s12 m10 offset-m1">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-title black-text center">from: {{msg.sender}}</div>
+            <p class="flow-text">{{msg.body}}</p>
+          </div>
+          <div class="card-action">
+            <a href="" class="right" ng-click="deleteMessage(msg)">delete</a>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
