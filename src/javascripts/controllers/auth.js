@@ -12,7 +12,14 @@ angular.module('GameTime')
     } else if ($scope.user.primary === 'lol') {
       primaryUsername = $scope.user.lol;
     }
-
+    if (!$scope.user.playStyle) {
+      swal('error', 'please choose a play style', 'error');
+      return;
+    }
+    if (!$scope.user.primary) {
+      swal('error', 'please choose a primary username', 'error');
+      return;
+    }
     ref.createUser({
       email: $scope.user.email,
       password: $scope.user.password

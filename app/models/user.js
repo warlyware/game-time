@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
   image: String,
   battleNet: String,
   lol: String,
-  primaryUsername: String,
+  primaryUsername: {type: String, required: true},
   md5: String,
   matches: [{type: mongoose.Schema.Types.ObjectId, ref:'Match'}],
   messages: [messageSchema],
