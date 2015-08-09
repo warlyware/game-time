@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
         return;
       }
 
-      var matchMoment = moment(req.body.Matchtime).format("dddd, MMMM Do, h:mm:ss a");
+      var matchMoment = moment(req.body.matchTime).format("dddd, MMMM Do, h:mm:ss a");
 
       var match = new Match({
         game: req.body.game,

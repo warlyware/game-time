@@ -97,6 +97,18 @@ angular.module('GameTime')
     });
   }
 
+  $scope.submitRequest = function() {
+    $http.post(URL.SERVER + '/match', {
+      matchTime: $scope.match.date,
+      game: $scope.match.game,
+      originMd5: $rootScope.currentUser.md5,
+      invitedMd5: $scope.user.md5,
+    })
+    .success(function() {
+      console.log('match saved');
+    })
+  }
+
   $scope.endorse = function(endorsement, val, e) {
 
     $http.patch(URL.SERVER + '/user', {

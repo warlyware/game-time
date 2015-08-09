@@ -116,12 +116,20 @@
     <h4>Request a Match</h4>
     <div class="col sm-12 m-3">
       <form name="requestMatchForm">
-        {{matchDate}}
-        <input type="text" id="datepicker">
+        <!-- <input type="text" id="datepicker" ng-model="matchDate"> -->
+        <span class="request-text">Date and time:  </span>
+        <input type="datetime-local" class="datepicker" ng-model="match.date">
+        <span class="request-text"> Game: </span>
+        <select class="browser-default request-game" ng-model="match.game">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="starcraft 2">starcraft 2</option>
+          <option value="league of legends">league of legends</option>
+        </select>
       </form>
     </div>
   </div>
   <div class="modal-footer">
+    <a href="" ng-click="submitRequest()" class=" modal-action modal-close waves-effect waves-green btn-flat">submit</a>
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">cancel</a>
   </div>
 </div>

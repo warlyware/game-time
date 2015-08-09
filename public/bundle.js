@@ -300,6 +300,18 @@ angular.module('GameTime')
     });
   }
 
+  $scope.submitRequest = function() {
+    $http.post(URL.SERVER + '/match', {
+      matchTime: $scope.match.date,
+      game: $scope.match.game,
+      originMd5: $rootScope.currentUser.md5,
+      invitedMd5: $scope.user.md5,
+    })
+    .success(function() {
+      console.log('match saved');
+    })
+  }
+
   $scope.endorse = function(endorsement, val, e) {
 
     $http.patch(URL.SERVER + '/user', {
@@ -336,9 +348,14 @@ angular.module('GameTime')
       })
       .success(function(data) {
         swal("Thanks!", "Your match request was cancelled", "success"); });
-        $state.reload();
-
-    })
+        swal({
+          title: 'declined!',
+          text: 'match request with ' + match.sender + ' has been declined',
+          type: 'success'
+        }, function() {
+          $state.reload();
+        });
+    });
   }
 
   $scope.cancelMatch = function(match) {
@@ -352,9 +369,15 @@ angular.module('GameTime')
         md5: match.invitedMd5
       })
       .success(function(data) {
-        swal("Thanks!", "Your match request was cancelled", "success"); });
-        $state.reload();
+        swal({
+          title: 'cancelled!',
+          text: 'cancelled your match with ' + match.receiver,
+          type: 'success'
+        }, function() {
+          $state.reload();
+        });
       });
+    });
   }
 
   $scope.acceptMatch = function(match) {
@@ -363,7 +386,22 @@ angular.module('GameTime')
       matchId: match._id
     })
     .success(function(savedMatch) {
-      console.log('saved match', savedMatch);
+
+      var msgBody = 'Your match with ' + match.receiver + ' to play ' + match.game + ' on ' + match.formattedTime + ' has been accepted';
+      $http.post(URL.SERVER + '/message', {
+        sender: 'System',
+        body: msgBody,
+        md5: match.originMd5
+      }).success(function() {
+        swal({
+          title: 'match accepted!',
+          text: 'accepted request to play ' + match.sender + ' in ' + match.game,
+          type: 'success'
+        }, function() {
+          $state.reload();
+        });
+
+      });
     });
   }
 
@@ -437,10 +475,15 @@ angular.module('GameTime')
   }
 
   angular.element(document).ready(function() {
-    setTimeout(function() {
+    if (!$rootScope.currentUser) {
+      setTimeout(function() {
+        $scope.getMatches();
+        $scope.getUser();
+      }, 1200);
+    } else {
       $scope.getMatches();
       $scope.getUser();
-    }, 1200);
+    }
   })
 
 

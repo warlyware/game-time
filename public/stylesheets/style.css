@@ -18,8 +18,8 @@ h5 img {
   width: 20px;
 }
 
-#datepicker {
-  width: 200px;
+.datepicker {
+  width: 200px !important;
 }
 
 .positive {
@@ -195,6 +195,17 @@ h2.intro-header {
 
 .feedback-radio-wrapper {
   margin-left: -20px;
+}
+
+.request-game {
+  width: 250px;
+  display: inline-block !important;
+}
+
+.request-text {
+  font-weight: bold;
+  margin-left: 10vw;
+  margin-right: 15px;
 }
 
 .submit-feedback {
