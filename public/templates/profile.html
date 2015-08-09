@@ -6,10 +6,12 @@
         <p class="center flow-text">{{user.primaryUsername}}</h3>
         <p class="center flow-text play-style">{{user.playStyle}}</h3>
       </div>
-      <button class="btn waves-effect waves-light" ng-click="openMessageModal()">message</button>
-      <br><br>
-      <!-- Request Match Modal Trigger -->
-      <a class="waves-effect waves-light btn modal-trigger" href="#requestAMatch">request a match</a>
+      <div ng-hide="currentUser.primaryUsername === user.primaryUsername">
+        <button class="btn waves-effect waves-light" ng-click="openMessageModal()">message</button>
+        <br><br>
+        <a class="waves-effect waves-light btn modal-trigger" href="#requestAMatch">request a match</a>
+
+      </div>
 
       <div class="feedback-wrapper">
         <h5>Positive Feedback:</h5>
@@ -83,7 +85,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" ng-hide="currentUser.primaryUsername === user.primaryUsername">
         <form name="newMessage" ng-submit="submitFeedback()">
           <div class="input-field col s12">
             <textarea id="textarea1" class="materialize-textarea" ng-model="feedback.body"></textarea>

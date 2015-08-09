@@ -268,7 +268,22 @@ router.get('/sent/:id', function(req, res) {
         res.status(404).json({ error: "No matches" });
         return;
       }
-      res.json(matches);
+
+      var acceptedMatches = [];
+      var receivedMatches = [];
+      console.log('matches:', matches.length);
+      for (var i = 0; i < matches.length; i++) {
+        console.log('loop:', matches[i]);
+        if (matches[i].accepted === true) {
+          console.log('accepted match:', matches[i]);
+          acceptedMatches.push(matches[i]);
+        } else {
+          console.log('not accepted match:', matches[i]);
+          receivedMatches.push(matches[i]);
+        }
+      }
+
+      res.json({accepted: acceptedMatches, received: receivedMatches});
 
     });
     console.log(user);

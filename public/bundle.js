@@ -421,8 +421,9 @@ angular.module('GameTime')
   // Get match requests
   getMatches = function() {
     $http.get(URL.SERVER + '/match/sent/' + $rootScope.currentUser.md5)
-      .success(function(data) {
-        $scope.requestedMatches = data;
+      .success(function(matches) {
+        $scope.acceptedMatches = matches.accepted;
+        $scope.receivedMatches = matches.received;
       })
       .error(function(err) {
         console.error(err);
@@ -486,17 +487,23 @@ angular.module('GameTime')
       })
   }
 
-  angular.element(document).ready(function() {
-    if (!$rootScope.currentUser) {
-      setTimeout(function() {
-        getMatches();
-        getUser();
-      }, 1200);
-    } else {
+
+  if (!$rootScope.currentUser) {
+
+    $("#fakeLoader").fakeLoader({
+      timeToHide:1300, //Time in milliseconds for fakeLoader disappear
+      zIndex:"999",//Default zIndex
+      spinner:"spinner2",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+      bgColor:"#099688" //Hex, RGB or RGBA colors
+    });
+    setTimeout(function() {
       getMatches();
       getUser();
-    }
-  })
+    }, 1200);
+  } else {
+    getMatches();
+    getUser();
+  }
 
 
 });
