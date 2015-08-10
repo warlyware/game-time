@@ -23,7 +23,29 @@ angular.module('GameTime')
         $http.get(URL.SERVER + '/sc2data/' + $scope.user.sc2id + '/' + $scope.user.sc2)
           .success(function(sc2data) {
             $scope.sc2data = sc2data;
+            $scope.sc2wins = sc2data.career.protossWins + sc2data.career.zergWins + sc2data.career.terranWins;
+            $scope.sc2losses = sc2data.career.seasonTotalGames - $scope.sc2wins;
             console.log(sc2data);
+            $(function () {
+                $('#sc2WinLoss').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    series: [{
+                        name: user.sc2,
+                        data: [{
+                          name: 'wins',
+                          y: $scope.sc2wins
+                        }, {
+                          name: 'losses',
+                          y: $scope.sc2losses
+                        }]
+                    }]
+                });
+            });
         });
       }
       if (user.lol) {
@@ -31,6 +53,26 @@ angular.module('GameTime')
           .success(function(loldata) {
             $scope.loldata = loldata;
             $scope.loltotalgames = Number(loldata.wins) + Number(loldata.losses);
+            $(function () {
+                $('#lolWinLoss').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    series: [{
+                        name: user.lol,
+                        data: [{
+                          name: 'wins',
+                          y: Number(loldata.wins)
+                        }, {
+                          name: 'losses',
+                          y: Number(loldata.losses)
+                        }]
+                    }]
+                });
+            });
           })
           .error(function(err) {
             console.log(err);

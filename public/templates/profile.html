@@ -27,14 +27,51 @@
           <!-- <img ng-src="{{sc2data.portrait.url}}" class="portrait" alt=""> -->
           <h5>{{sc2data.displayName}}</h5>
           <h5>Primary Race: {{sc2data.career.primaryRace}}</h5>
+          <br>
           <hr>
-          <h6>Protoss wins: {{sc2data.career.protossWins}}</h6>
-          <h6>Zerg wins: {{sc2data.career.zergWins}}</h6>
-          <h6>Terran wins: {{sc2data.career.terranWins}}</h6>
-          <h6>Season total games: {{sc2data.career.seasonTotalGames}}</h6>
-          <h6>Career total games: {{sc2data.career.careerTotalGames}}</h6>
-          <h6>1v1 Rank: {{sc2data.career.highest1v1Rank}}</h6>
-          <h6>Team Rank: {{sc2data.career.highestTeamRank}}</h6>
+          <br>
+
+          <div class="col s12 m6">
+            <div ng-if="sc2data.career.highest1v1Rank">
+              <h5 class="stat-title">1v1 Rank: </h5>
+              <h4>{{sc2data.career.highest1v1Rank}}</h4>
+
+            </div>
+            <div ng-if="sc2data.career.highestTeamRank">
+              <h5 class="stat-title">Team Rank: </h5>
+              <h4>{{sc2data.career.highestTeamRank}}</h4>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <h5 class="stat-title">career total games:</h5>
+            <h4>{{sc2data.career.careerTotalGames}}</h4>
+          </div>
+
+          <div class="col s12">
+            <br><hr><br>
+            <h4>this season</h4>
+          </div>
+
+          <div class="col s12 m6" ng-if="sc2wins !== 0">
+            <div id="sc2WinLoss" style="width:100%; height:250px;"></div>
+          </div>
+          <div class="col s12 m6">
+            <h5 class="stat-title left">Protoss wins:</h5>
+            <span class="stat">{{sc2data.career.protossWins}}</span><br>
+            <h5 class="stat-title left">Zerg wins:</h5>
+            <span class="stat">{{sc2data.career.zergWins}}</span><br>
+            <h5 class="stat-title left">Terran wins:</h5>
+            <span class="stat">{{sc2data.career.terranWins}}</span><br>
+            <h5 class="stat-title left">Season total games:</h5>
+            <span class="stat">{{sc2data.career.seasonTotalGames}}</span>
+          </div>
+
+
+
+
+
+
+          <br><br><br>
         </div>
       </div>
       <div class="card" ng-if="user.lol">
@@ -42,25 +79,37 @@
           <div class="card-title black-text">Leage of Legends</div>
           <h5>{{loldata.name}}</h5>
           <hr>
-          <h6>Wins: {{loldata.wins}}</h6>
-          <h6>Losses: {{loldata.losses}}</h6>
-          <h6>Total games played: {{loltotalgames}}</h6>
-          <h6>Tier: <span>{{loldata.tier_name}}</span></h6>
-          <h5 class="heroes">heroes</h5>
-          <br>
-          <hr width="20%">
-          <br>
-          <div class="col m6" ng-repeat="hero in lolHeroes">
-            <img ng-src="http://ddragon.leagueoflegends.com/cdn/4.2.6/img/champion/{{hero.img}}.png" alt="">
-            <h4>{{hero.name}}</h4>
-            <div ng-repeat="tags in hero.tags">
-              <bold>{{tag}}</bold>
+          <div class="col s12 m6">
+            <div id="lolWinLoss" style="width:100%; height:250px;"></div>
+          </div>
+          <div class="col s12 m6">
+            <h5 class="stat-title">Total games played: </h5>
+            <h4>{{loltotalgames}}</h4>
+            <h5 class="stat-title">Tier: </h5>
+            <h4>{{loldata.tier_name}}</h4>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <br>
+              <h5 class="heroes">heroes</h5>
+              <br>
+              <hr width="20%">
+              <br>
+              <div class="col m6" ng-repeat="hero in lolHeroes">
+                <img ng-src="http://ddragon.leagueoflegends.com/cdn/4.2.6/img/champion/{{hero.img}}.png" alt="">
+                <h4>{{hero.name}}</h4>
+                <div ng-repeat="tags in hero.tags">
+                  <bold>{{tag}}</bold>
+                </div>
+              </div>
             </div>
           </div>
 
         </div>
       </div>
     </div>
+
+    <!--
     <div class="col s12 m8 offset-m2 profile-main profile-endorsements">
       <div class="card">
         <div class="card-content">
@@ -70,6 +119,8 @@
         </div>
       </div>
     </div>
+     -->
+
   </div>
   <div class="row">
     <div class="col s12 m8 offset-m2">
