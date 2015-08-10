@@ -2,7 +2,7 @@
   <div class="row center">
     <div class="col s12 m4 profile-sidebar">
       <div class="avatar-profile center">
-        <img src="{{user.image}}" alt="" class="responsive-img">
+        <img src="{{user.image}}" alt="" class="responsive-img avatar-lg">
         <p class="center flow-text">{{user.primaryUsername}}</h3>
         <p class="center flow-text play-style">{{user.playStyle}}</h3>
       </div>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="col s12 m8 profile-main">
-      <div class="card" ng-if="user.sc2">
+      <div class="card z-depth-4" ng-if="user.sc2">
         <div class="card-content">
           <div class="card-title black-text">Starcraft 2</div>
           <!-- <img ng-src="{{sc2data.portrait.url}}" class="portrait" alt=""> -->
@@ -34,17 +34,17 @@
           <div class="col s12 m6">
             <div ng-if="sc2data.career.highest1v1Rank">
               <h5 class="stat-title">1v1 Rank: </h5>
-              <h4>{{sc2data.career.highest1v1Rank}}</h4>
+              <h4 class="stat">{{sc2data.career.highest1v1Rank}}</h4>
 
             </div>
             <div ng-if="sc2data.career.highestTeamRank">
               <h5 class="stat-title">Team Rank: </h5>
-              <h4>{{sc2data.career.highestTeamRank}}</h4>
+              <h4 class="stat">{{sc2data.career.highestTeamRank}}</h4>
             </div>
           </div>
           <div class="col s12 m6">
             <h5 class="stat-title">career total games:</h5>
-            <h4>{{sc2data.career.careerTotalGames}}</h4>
+            <h4 class="stat">{{sc2data.career.careerTotalGames}}</h4>
           </div>
 
           <div class="col s12">
@@ -74,7 +74,7 @@
           <br><br><br>
         </div>
       </div>
-      <div class="card" ng-if="user.lol">
+      <div class="card z-depth-4" ng-if="user.lol">
         <div class="card-content">
           <div class="card-title black-text">Leage of Legends</div>
           <h5>{{loldata.name}}</h5>
@@ -124,7 +124,7 @@
   </div>
   <div class="row">
     <div class="col s12 m8 offset-m2">
-      <hr width="40%">
+      <br>
       <div class="row">
         <h4 class="center">User Feedback</h4>
         <div class="card-panel" ng-repeat="feedback in feedbacks">
@@ -132,7 +132,7 @@
           <h6 class="{{feedback.feedbackVal}}">
               {{feedback.feedbackVal}}
           </h6>
-          <span>{{feedback.body}}</span>
+          <span class="black-text">{{feedback.body}}</span>
         </div>
       </div>
 
@@ -174,7 +174,7 @@
         <input type="datetime-local" class="datepicker" ng-model="match.date">
         <span class="request-text"> Game: </span>
         <select class="browser-default request-game" ng-model="match.game">
-          <option value="" disabled selected>Choose your option</option>
+          <option value="" disabled selected>choose a game</option>
           <option value="starcraft 2">starcraft 2</option>
           <option value="league of legends">league of legends</option>
         </select>

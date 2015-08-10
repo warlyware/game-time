@@ -6,6 +6,7 @@ var matchSchema = mongoose.Schema({
   time: Date,
   game: String,
   formattedTime: String,
+  milTime: String,
   accepted: Boolean,
   originMd5: String,
   invitedMd5: String,

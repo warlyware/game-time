@@ -30,6 +30,8 @@ router.post('/', function(req, res) {
       }
 
       var matchMoment = moment(req.body.matchTime).format("dddd, MMMM Do, h:mm:ss a");
+      var milTime = moment(req.body.matchTime).milliseconds();
+      console.log(milTime);
 
       var match = new Match({
         game: req.body.game,
@@ -37,6 +39,7 @@ router.post('/', function(req, res) {
         sender: oUser.primaryUsername,
         receiver: iUser.primaryUsername,
         formattedTime: matchMoment,
+        milTime: milTime,
         originMd5: oUser.md5,
         invitedMd5: iUser.md5,
         originUser: oUser._id,

@@ -1,11 +1,29 @@
 .container {
-  border: #f00;
+  border: #f00 !important;
+}
+
+.card, .card-panel {
+  border-radius: 10px !important;
+}
+
+.btn {
+  color: white !important;
+  background-color: #00BC8D !important;
+  border-radius: 30px !important;
+}
+
+input, textarea {
+  color: black !important;
 }
 
 h1, h2, h3, h4, h5, h6, p {
   font-family: 'Khula' !important;
   font-weight: 300 !important;
   color: #818181;
+}
+
+thead th {
+  color: black;
 }
 
 body {
@@ -15,8 +33,9 @@ body {
   background-color: #686f75;
 }
 
-table {
-  color:
+button {
+  border-radius: 30px !important;
+  background-color: #00bc8D !important;
 }
 
 .directory a {
@@ -40,12 +59,12 @@ h5 img {
 
 .positive {
   color: green;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .negative {
   color: red;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .home hr {
@@ -67,8 +86,17 @@ h5 img {
   width: 250px;
 }
 
+.avatar-lg {
+  -webkit-box-shadow: inset 2px 6px 43px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset 2px 6px 43px -12px rgba(0,0,0,0.75);
+  box-shadow: inset 2px 6px 43px -12px rgba(0,0,0,0.75);
+  border-radius: 5px;
+
+}
+
 .avatar-profile p {
   font-weight: bold;
+
 }
 
 .directory .card {
@@ -173,6 +201,7 @@ h2.intro-header {
 
 .profile .stat {
   font-size: 2.28rem;
+  color: black;
 }
 
 .profile .stat-title {
@@ -230,6 +259,15 @@ h2.intro-header {
   font-weight: bold;
   margin-left: 10vw;
   margin-right: 15px;
+  color: black;
+}
+
+a.waves-effect.waves-light {
+  color: black;
+}
+
+.side-nav a {
+  color: black !important;
 }
 
 .submit-feedback {

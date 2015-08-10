@@ -1,4 +1,4 @@
-var app = angular.module('GameTime', ['ui.router', 'firebase']);
+var app = angular.module('GameTime', ['ui.router', 'firebase', 'timer']);
 
 app.run(function ($rootScope, $state, $log) {
   $rootScope.$on('$stateChangeError', function () {
@@ -462,31 +462,39 @@ angular.module('GameTime')
 
   // Get match requests
   getMatches = function() {
+    var acceptedMatchesArray = [];
+    var receivedMatchesArray = [];
+    var requestedMatchesArray = [];
+
     $http.get(URL.SERVER + '/match/sent/' + $rootScope.currentUser.md5)
       .success(function(matches) {
-        $scope.acceptedMatches = matches.accepted;
-        $scope.receivedMatches = matches.received;
+        acceptedMatchesArray.push(matches.accepted);
+        requestedMatchesArray.push(matches.received);
+        $http.get(URL.SERVER + '/match/received/' + $rootScope.currentUser.md5)
+          .success(function(matches2) {
+            console.log('array ' + matches2.accepted);
+            acceptedMatchesArray.push(matches2.accepted);
+            receivedMatchesArray.push(matches2.received);
+            $scope.acceptedMatches = acceptedMatchesArray;
+            $scope.requestedMatches = requestedMatchesArray;
+            $scope.receivedMatches = receivedMatchesArray;
+
+            $http.get(URL.SERVER + '/user/' + $rootScope.currentUser.md5)
+              .success(function(data) {
+                $rootScope.currentUser = data;
+                // $scope.$apply();
+              })
+              .error(function(err) {
+                console.error(err);
+              });
+          });
       })
       .error(function(err) {
         console.error(err);
-      });
-
-    $http.get(URL.SERVER + '/match/received/' + $rootScope.currentUser.md5)
-      .success(function(matches) {
-        console.log(matches);
-        $scope.acceptedMatches = matches.accepted;
-        $scope.receivedMatches = matches.received;
       });
   }
 
   getUser = function() {
-    $http.get(URL.SERVER + '/user/' + $rootScope.currentUser.md5)
-      .success(function(data) {
-        $rootScope.currentUser = data;
-      })
-      .error(function(err) {
-        console.error(err);
-      });
 
   }
 
@@ -530,14 +538,14 @@ angular.module('GameTime')
   }
 
 
-  if (!$rootScope.currentUser) {
 
-    $("#fakeLoader").fakeLoader({
-      timeToHide:1300, //Time in milliseconds for fakeLoader disappear
-      zIndex:"999",//Default zIndex
-      spinner:"spinner2",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
-      bgColor:"#099688" //Hex, RGB or RGBA colors
-    });
+    // $("#fakeLoader").fakeLoader({
+    //   timeToHide:1300, //Time in milliseconds for fakeLoader disappear
+    //   zIndex:"999",//Default zIndex
+    //   spinner:"spinner2",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+    //   bgColor:"#099688" //Hex, RGB or RGBA colors
+    // });
+  if (!$rootScope.currentUser) {
     setTimeout(function() {
       getMatches();
       getUser();

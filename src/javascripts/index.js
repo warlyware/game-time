@@ -1,4 +1,4 @@
-var app = angular.module('GameTime', ['ui.router', 'firebase']);
+var app = angular.module('GameTime', ['ui.router', 'firebase', 'timer']);
 
 app.run(function ($rootScope, $state, $log) {
   $rootScope.$on('$stateChangeError', function () {
