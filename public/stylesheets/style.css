@@ -1,6 +1,22 @@
+.container {
+  border: #f00;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Khula' !important;
+  font-weight: 300 !important;
+  color: #818181;
+}
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Antic Slab', Helvetica, sans-serif !important;
+  letter-spacing: 0.1em;
+  color: #e8e8e8;
+  background-color: #686f75;
+}
+
+table {
+  color:
 }
 
 .directory a {
