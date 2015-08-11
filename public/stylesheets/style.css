@@ -195,6 +195,16 @@ h2.intro-header {
   margin-top: 50px;
 }
 
+h1.landing-title {
+  margin-top: 10vh;
+
+}
+
+.parallax-container {
+  margin-top: -50px;
+  height: 400px !important;
+}
+
 .profile-column {
   margin-right: 10px !important;
 }
