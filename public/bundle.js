@@ -8,8 +8,7 @@ app.run(function ($rootScope, $state, $log) {
 });
 
 app.constant('URL', {
-  // 'SERVER': '//dw-game-time.herokuapp.com',
-  'SERVER': '//localhost:3000',
+  'SERVER': '//dw-game-time.herokuapp.com',
   'FIREBASE': '//dw-game-time.firebaseio.com'
 });
 
