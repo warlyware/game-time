@@ -39,8 +39,6 @@ router.post('/', function(req, res) {
     user.feedback.positivePercentage = Math.round((positive/total) * 100);
     user.feedback.negativePercentage = Math.round((negative/total) * 100);
 
-    console.log(user.feedback);
-
     user.feedbacks.push(feedback);
 
     user.save(function(err, savedUser) {

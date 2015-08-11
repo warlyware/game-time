@@ -29,9 +29,8 @@ router.post('/', function(req, res) {
         return;
       }
 
-      var matchMoment = moment(req.body.matchTime).format("dddd, MMMM Do, h:mm:ss a");
-      var milTime = moment(req.body.matchTime).milliseconds();
-      console.log(milTime);
+      var matchMoment = moment(req.body.matchTime).format("dddd, MMMM Do YYYY, h:mm:ss a");
+      var milTime = moment(req.body.matchTime).unix();
 
       var match = new Match({
         game: req.body.game,

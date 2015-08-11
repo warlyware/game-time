@@ -23,21 +23,18 @@ router.get('/:loluser/heroes', function(req, res) {
       res.status(400).json('API error');
     }
 
-    console.log(user.most_played_champions);
     var userHeroesData = user.most_played_champions;
     var userHeroIds = [];
     var userHeroes = [];
 
     for (var i = 0; i < userHeroesData.length; i++) {
       userHeroIds.push(userHeroesData[i].champion_id);
-      console.log('userHeroIds', userHeroIds);
     }
 
     for (var i = 0; i < lolHeroes.length; i++) {
       for (var j = 0; j < userHeroIds.length; j++) {
         if (lolHeroes[i].id == userHeroIds[j]) {
           userHeroes.push(lolHeroes[i]);
-          console.log('```User Heroes```' + userHeroes);
         }
       }
     }

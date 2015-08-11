@@ -1,9 +1,11 @@
 <div class="contianer">
   <div class="row login-card profile-column">
     <div class="card col s12 m3 offset-m1 z-depth-5">
-      <h4 class="center">{{currentUser.primaryUsername}}</h4>
-      <img ng-src="{{currentUser.image}}" alt="" class="avatar-lg">
-      <h4>{{currentUser.playStyle}}</h4>
+      <h4 class="center flow-text hide-on-small-only">{{currentUser.primaryUsername}}</h4>
+      <h4 class="center hide-on-med-and-up">{{currentUser.primaryUsername}}</h4>
+      <img ng-src="{{currentUser.image}}" alt="" class="avatar-lg responsive-img">
+      <h4 class="center flow-text hide-on-small-only">{{currentUser.playStyle}}</h4>
+      <h4 class="center hide-on-med-and-up">{{currentUser.playStyle}}</h4>
       <form ng-submit="updateUser()">
         <div class="row">
           <div class="input-field col s12">
@@ -34,7 +36,7 @@
 
         <h5 class="center">matches you've accepted</h5>
 
-        <div class="card z-depth-4" ng-if="!acceptedMatches[0].length">
+        <div class="card z-depth-4" ng-if="!(acceptedMatches[0].length || acceptedMatches[1].length)">
           <div class="card-content col s10 offset-s1">
             <div>
               <p class="black-text left">You have 0 accepted matches</p>
@@ -43,7 +45,7 @@
         </div>
 
         <div ng-repeat="matchObj in acceptedMatches">
-          <div ng-repeat="match in matchObj" class="card z-depth-4">
+          <div ng-repeat="match in matchObj | orderBy: 'time'" class="card z-depth-4">
             <span class="card-title">you are playing
               <span ng-if="match.receiver === currentUser.primaryUsername">
                 {{match.sender}}
@@ -58,7 +60,11 @@
                 <h5 class="black-text">{{match.game}}</h5>
                 <p class="black-text">on</p>
                 <p class="black-text">{{match.formattedTime}}</p>
-                <h6><timer /></h6>
+                <h5>
+                  <timer interval="1000" end-time="match.milTime*1000">
+                    {{days}} days, {{hours}} hours, {{seconds}} seconds
+                  </timer>
+                </h5>
               </div>
             </div>
           </div>

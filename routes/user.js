@@ -8,7 +8,6 @@ var userImg;
 
 router.get('/:id', function(req, res) {
   var requestedUser = req.params.id;
-  console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);
@@ -17,7 +16,6 @@ router.get('/:id', function(req, res) {
       res.status(404).json({ error: "User Not Found" });
       return;
     }
-    console.log(user);
     res.json(user);
   });
 });
@@ -28,8 +26,6 @@ router.patch('/', function(req, res) {
   var endorsement = req.body.endorsement;
   var image = req.body.image;
   var playStyle = req.body.playStyle;
-
-  console.log(requestedUser);
 
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
@@ -71,9 +67,7 @@ router.patch('/', function(req, res) {
 });
 
 router.get('/login/:id', function(req, res) {
-  console.log('login');
   var requestedUser = md5(req.params.id);
-  console.log('simple login', requestedUser);
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
       res.send(err);
@@ -89,7 +83,6 @@ router.get('/login/:id', function(req, res) {
 
 router.post('/', function(req, res) {
 
-  console.log('user image', userImg);
   var user = new User({
     primaryUsername: req.body.primaryUsername,
     email: req.body.email,
@@ -136,14 +129,12 @@ router.post('/', function(req, res) {
         res.status(400).json({ error: "Validation Failed" });
       }
 
-      console.log("User Saved:", savedUser);
       res.json(savedUser);
     });
   }
 });
 
 router.get('/', function(req, res) {
-  console.log(req.params.id);
   User.find({ }, function(err, users) {
     if (err) {
       res.send(err);
@@ -152,7 +143,6 @@ router.get('/', function(req, res) {
       res.status(404).json({ error: "Users Not Found" });
       return;
     }
-    console.log(users);
     res.json(users);
   });
 });
