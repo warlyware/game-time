@@ -200,6 +200,10 @@ h1.landing-title {
 
 }
 
+select.browser-default {
+  color: #8C8C8C;
+}
+
 .parallax-container {
   margin-top: -50px;
   height: 400px !important;
