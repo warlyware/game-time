@@ -1,4 +1,3 @@
-// HumanizeDuration.js - http://git.io/j0HgmQ
 
 (function() {
 

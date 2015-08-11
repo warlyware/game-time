@@ -93,7 +93,7 @@ router.post('/', cors(), function(req, res) {
     sc2id: req.body.sc2id,
     lol: req.body.lol,
     fbid: req.body.fbid,
-    image: 'http://placehold.it/250x250',
+    image: '//placehold.it/250x250',
     feedback: {
       positive: 0,
       negative: 0,
@@ -111,7 +111,7 @@ router.post('/', cors(), function(req, res) {
         res.status(400).json('API error');
       }
       imgId = loluser.profile_icon_id;
-      user.image = 'http://lkimg.zamimg.com/shared/riot/images/profile_icons/profileIcon' + imgId + '.jpg';
+      user.image = '//lkimg.zamimg.com/shared/riot/images/profile_icons/profileIcon' + imgId + '.jpg';
       user.save(function(err, savedUser) {
         if (err) {
           console.log(err);
@@ -123,7 +123,7 @@ router.post('/', cors(), function(req, res) {
       });
     });
   } else {
-    user.image = 'http://zdjecia.pl.sftcdn.net/pl/scrn/115000/115712/starcraft-2-33.png';
+    user.image = '//zdjecia.pl.sftcdn.net/pl/scrn/115000/115712/starcraft-2-33.png';
     user.save(function(err, savedUser) {
       if (err) {
         console.log(err);
