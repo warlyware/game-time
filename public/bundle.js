@@ -154,7 +154,10 @@ angular.module('GameTime')
 
 angular.module('GameTime')
 .controller('HomeCtrl', function($scope) {
-  console.log('HomeCtrl loaded.');
+  $(document).ready(function(){
+    $('.parallax').parallax();
+  });
+
 });
 
 angular.module('GameTime')
@@ -365,7 +368,7 @@ angular.module('GameTime')
     .success(function() {
       swal({
         title: 'gametime!',
-        text: 'your request to play ' + $scope.match.game + 'has been accepted',
+        text: 'your request to play ' + $scope.match.game + ' has been accepted',
         type: 'success'
       }, function() {
       });

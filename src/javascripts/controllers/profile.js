@@ -150,7 +150,7 @@ angular.module('GameTime')
     .success(function() {
       swal({
         title: 'gametime!',
-        text: 'your request to play ' + $scope.match.game + 'has been accepted',
+        text: 'your request to play ' + $scope.match.game + ' has been accepted',
         type: 'success'
       }, function() {
       });
