@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bnet = require('battlenet-api')();
+var cors = require('cors');
 
 router.get('/:sc2id/:sc2', cors(), function(req, res) {
   var sc2id = req.params.sc2id;

@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../app/models/user.js');
 var Match = require('../app/models/match.js')
 var moment = require('moment');
+var cors = require('cors');
 
 router.post('/', cors(), function(req, res) {
   var originUser = req.body.originMd5;

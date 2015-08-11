@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../app/models/user.js');
 var md5 = require('md5');
 var lookup = require('lolking-lookup');
+var cors = require('cors');
 
 var userImg;
 

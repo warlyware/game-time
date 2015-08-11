@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user.js');
 var Message = require('../app/models/message.js');
+var cors = require('cors');
 
 router.post('/', cors(), function(req, res) {
   var requestedUser = req.body.md5;

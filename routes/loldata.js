@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var lookup = require('lolking-lookup');
 var lolHeroes = require('../data/lol-champions.json');
+var cors = require('cors');
 
 router.get('/:loluser', cors(), function(req, res) {
   lookup('na', req.params.loluser, function(error, user) {

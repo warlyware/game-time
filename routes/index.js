@@ -3,6 +3,7 @@ var router = express.Router();
 var md5 = require('md5');
 var mongoose = require('mongoose');
 var moment = require('moment');
+var cors = require('cors');
 
 mongoose.connect(process.env.MONGOLAB_URI);
 
