@@ -211,7 +211,7 @@ router.delete('/cancel/:user/:matchId', cors(), function(req, res) {
   });
 });
 
-router.get('/received/:id', function(req, cors(), res) {
+router.get('/received/:id', cors(), function(req, res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
@@ -252,7 +252,7 @@ router.get('/received/:id', function(req, cors(), res) {
   });
 });
 
-router.get('/sent/:id', function(req, cors(), res) {
+router.get('/sent/:id', cors(), function(req, res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
