@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user.js');
 var Feedback = require('../app/models/feedback.js');
+var cors = require('cors');
 
-router.post('/', function(req, res) {
+router.post('/', cors(), function(req, res) {
   var requestedUser = req.body.md5;
 
   User.findOne({ md5: requestedUser }, function(err, user) {

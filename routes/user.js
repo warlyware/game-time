@@ -6,7 +6,7 @@ var lookup = require('lolking-lookup');
 
 var userImg;
 
-router.get('/:id', function(req, res) {
+router.get('/:id', cors(), function(req, res) {
   var requestedUser = req.params.id;
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
@@ -21,7 +21,7 @@ router.get('/:id', function(req, res) {
 });
 
 // Route to update user
-router.patch('/', function(req, res) {
+router.patch('/', cors(), function(req, res) {
   var requestedUser = req.body.md5;
   var endorsement = req.body.endorsement;
   var image = req.body.image;
@@ -66,7 +66,7 @@ router.patch('/', function(req, res) {
 
 });
 
-router.get('/login/:id', function(req, res) {
+router.get('/login/:id', cors(), function(req, res) {
   var requestedUser = md5(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
     if (err) {
@@ -81,7 +81,7 @@ router.get('/login/:id', function(req, res) {
   });
 });
 
-router.post('/', function(req, res) {
+router.post('/', cors(), function(req, res) {
 
   var user = new User({
     primaryUsername: req.body.primaryUsername,
@@ -134,7 +134,7 @@ router.post('/', function(req, res) {
   }
 });
 
-router.get('/', function(req, res) {
+router.get('/', cors(), function(req, res) {
   User.find({ }, function(err, users) {
     if (err) {
       res.send(err);

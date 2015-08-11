@@ -4,7 +4,7 @@ var User = require('../app/models/user.js');
 var Match = require('../app/models/match.js')
 var moment = require('moment');
 
-router.post('/', function(req, res) {
+router.post('/', cors(), function(req, res) {
   var originUser = req.body.originMd5;
   var invitedUser = req.body.invitedMd5;
 
@@ -81,7 +81,7 @@ router.post('/', function(req, res) {
 });
 
 //Route for accepted match
-router.patch('/', function(req, res) {
+router.patch('/', cors(), function(req, res) {
 
   var matchId = req.body.matchId;
 
@@ -107,7 +107,7 @@ router.patch('/', function(req, res) {
   });
 });
 
-router.delete('/decline/:user/:matchId', function(req, res) {
+router.delete('/decline/:user/:matchId', cors(), function(req, res) {
   var invitedUser = req.params.user;
   var matchId = req.params.matchId;
   User.findOne({ md5: invitedUser }, function(err, iUser) {
@@ -159,7 +159,7 @@ router.delete('/decline/:user/:matchId', function(req, res) {
 });
 
 // Route for player to cancel own invite
-router.delete('/cancel/:user/:matchId', function(req, res) {
+router.delete('/cancel/:user/:matchId', cors(), function(req, res) {
   var originUser = req.params.user;
   var matchId = req.params.matchId;
   User.findOne({ md5: originUser }, function(err, oUser) {
@@ -210,7 +210,7 @@ router.delete('/cancel/:user/:matchId', function(req, res) {
   });
 });
 
-router.get('/received/:id', function(req, res) {
+router.get('/received/:id', function(req, cors(), res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {
@@ -251,7 +251,7 @@ router.get('/received/:id', function(req, res) {
   });
 });
 
-router.get('/sent/:id', function(req, res) {
+router.get('/sent/:id', function(req, cors(), res) {
   var requestedUser = req.params.id;
   console.log(req.params.id);
   User.findOne({ md5: requestedUser }, function(err, user) {

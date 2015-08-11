@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../app/models/user.js');
 var Message = require('../app/models/message.js');
 
-router.post('/', function(req, res) {
+router.post('/', cors(), function(req, res) {
   var requestedUser = req.body.md5;
 
   User.findOne({ md5: requestedUser }, function(err, user) {
@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
   });
 });
 
-router.delete('/:userId/:msgId', function(req, res) {
+router.delete('/:userId/:msgId', cors(), function(req, res) {
   var userId = req.params.userId;
   var msgId = req.params.msgId;
   User.findOne({ md5: userId }, function(err, user) {

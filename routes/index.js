@@ -7,7 +7,7 @@ var moment = require('moment');
 mongoose.connect(process.env.MONGOLAB_URI);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', cors(), function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 

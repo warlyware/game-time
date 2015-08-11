@@ -3,7 +3,7 @@ var router = express.Router();
 var lookup = require('lolking-lookup');
 var lolHeroes = require('../data/lol-champions.json');
 
-router.get('/:loluser', function(req, res) {
+router.get('/:loluser', cors(), function(req, res) {
   lookup('na', req.params.loluser, function(error, user) {
     if (error) {
       throw error;
@@ -16,7 +16,7 @@ router.get('/:loluser', function(req, res) {
 });
 
 
-router.get('/:loluser/heroes', function(req, res) {
+router.get('/:loluser/heroes', cors(), function(req, res) {
   lookup('na', req.params.loluser, function(error, user) {
     if (error) {
       throw error;
