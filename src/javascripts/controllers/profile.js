@@ -114,7 +114,8 @@ angular.module('GameTime')
         md5: $scope.user.md5
       })
       .success(function(data) {
-        swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+        Materialize.toast('message sent!', 4000)
+        // swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
       });
   }
 
@@ -147,6 +148,12 @@ angular.module('GameTime')
       invitedMd5: $scope.user.md5,
     })
     .success(function() {
+      swal({
+        title: 'gametime!',
+        text: 'your request to play ' + $scope.match.game + 'has been accepted',
+        type: 'success'
+      }, function() {
+      });
       console.log('match saved');
     })
   }
