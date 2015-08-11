@@ -114,8 +114,9 @@ angular.module('GameTime')
         md5: $scope.user.md5
       })
       .success(function(data) {
-        Materialize.toast('message sent!', 4000)
-        // swal("Thanks!", "Your message has been sent: " + inputValue, "success"); });
+        Materialize.toast('message sent!', 4000);
+        // swal("Thanks!", "Your message has been sent: " + inputValue, "success");
+        });
       });
   }
 
